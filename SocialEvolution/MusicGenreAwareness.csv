@@ -1,0 +1,1234 @@
+"user.A.id","user.B.id","genre","date"
+2,2,"heavy metal / hardcore",2008-09-15
+43,38,"heavy metal / hardcore",2008-09-15
+46,38,"showtunes",2008-09-15
+47,40,"indie / alternative rock",2008-09-16
+20,40,"indie / alternative rock",2008-09-15
+6,40,"classic rock",2008-09-15
+20,40,"jazz",2008-09-15
+20,40,"classical",2008-09-15
+6,40,"showtunes",2008-09-15
+30,40,"showtunes",2008-09-15
+20,40,"showtunes",2008-09-15
+52,52,"heavy metal / hardcore",2008-09-16
+52,52,"jazz",2008-09-16
+52,52,"classical",2008-09-16
+30,62,"classic rock",2008-09-15
+19,62,"classical",2008-09-15
+46,62,"classical",2008-09-15
+43,62,"classical",2008-09-15
+46,62,"showtunes",2008-09-15
+72,62,"other",2008-09-16
+35,5,"classical",2008-09-15
+43,5,"classical",2008-09-15
+20,17,"classic rock",2008-09-15
+20,17,"techno / lounge / electronic",2008-09-15
+5,17,"country / folk",2008-09-15
+8,8,"classic rock",2008-09-15
+8,8,"pop / top 40",2008-09-15
+8,8,"classical",2008-09-15
+11,57,"indie / alternative rock",2008-09-16
+21,57,"indie / alternative rock",2008-09-16
+27,57,"indie / alternative rock",2008-09-16
+63,57,"classic rock",2008-09-16
+27,57,"classic rock",2008-09-16
+11,57,"heavy metal / hardcore",2008-09-16
+21,57,"heavy metal / hardcore",2008-09-16
+4,57,"heavy metal / hardcore",2008-09-15
+21,57,"classical",2008-09-16
+30,54,"indie / alternative rock",2008-09-15
+30,54,"classic rock",2008-09-15
+8,41,"classic rock",2008-09-15
+8,41,"pop / top 40",2008-09-15
+8,41,"classical",2008-09-15
+42,59,"classic rock",2008-09-15
+42,59,"heavy metal / hardcore",2008-09-15
+35,66,"classical",2008-09-15
+5,66,"classical",2008-09-15
+35,66,"other",2008-09-15
+47,68,"indie / alternative rock",2008-09-16
+30,68,"indie / alternative rock",2008-09-15
+46,68,"indie / alternative rock",2008-09-15
+54,68,"indie / alternative rock",2008-09-15
+20,68,"indie / alternative rock",2008-09-15
+42,68,"indie / alternative rock",2008-09-15
+54,68,"classic rock",2008-09-15
+20,68,"classical",2008-09-15
+54,68,"showtunes",2008-09-15
+35,35,"indie / alternative rock",2008-09-15
+66,35,"classic rock",2008-09-16
+35,35,"classic rock",2008-09-15
+35,35,"other",2008-09-15
+5,45,"classical",2008-09-15
+47,32,"indie / alternative rock",2008-09-16
+20,70,"indie / alternative rock",2008-09-15
+8,70,"classical",2008-09-15
+43,70,"classical",2008-09-15
+21,21,"indie / alternative rock",2008-09-16
+27,21,"indie / alternative rock",2008-09-16
+56,21,"indie / alternative rock",2008-09-15
+58,21,"indie / alternative rock",2008-09-15
+24,21,"indie / alternative rock",2008-09-15
+21,21,"classic rock",2008-09-16
+27,21,"classic rock",2008-09-16
+57,21,"classic rock",2008-09-15
+58,21,"classic rock",2008-09-15
+4,21,"classic rock",2008-09-15
+24,21,"classic rock",2008-09-15
+21,21,"heavy metal / hardcore",2008-09-16
+27,21,"heavy metal / hardcore",2008-09-16
+58,21,"heavy metal / hardcore",2008-09-15
+58,21,"pop / top 40",2008-09-15
+21,21,"techno / lounge / electronic",2008-09-16
+11,21,"classical",2008-09-16
+63,21,"classical",2008-09-16
+21,21,"classical",2008-09-16
+27,21,"classical",2008-09-16
+57,21,"classical",2008-09-15
+58,21,"classical",2008-09-15
+24,21,"classical",2008-09-15
+27,21,"other",2008-09-16
+11,36,"indie / alternative rock",2008-09-16
+47,36,"indie / alternative rock",2008-09-16
+46,36,"indie / alternative rock",2008-09-15
+11,36,"classic rock",2008-09-16
+47,36,"classic rock",2008-09-16
+19,36,"classic rock",2008-09-15
+46,36,"classic rock",2008-09-15
+11,36,"heavy metal / hardcore",2008-09-16
+47,36,"heavy metal / hardcore",2008-09-16
+47,36,"pop / top 40",2008-09-16
+44,36,"pop / top 40",2008-09-16
+6,36,"pop / top 40",2008-09-15
+19,36,"pop / top 40",2008-09-15
+30,36,"pop / top 40",2008-09-15
+46,36,"pop / top 40",2008-09-15
+18,36,"pop / top 40",2008-09-15
+42,36,"pop / top 40",2008-09-15
+11,36,"techno / lounge / electronic",2008-09-16
+47,36,"techno / lounge / electronic",2008-09-16
+69,36,"techno / lounge / electronic",2008-09-16
+44,36,"techno / lounge / electronic",2008-09-16
+6,36,"techno / lounge / electronic",2008-09-15
+30,36,"techno / lounge / electronic",2008-09-15
+46,36,"techno / lounge / electronic",2008-09-15
+28,36,"techno / lounge / electronic",2008-09-15
+42,36,"techno / lounge / electronic",2008-09-15
+23,36,"techno / lounge / electronic",2008-09-15
+47,36,"hip-hop / r&b",2008-09-16
+44,36,"hip-hop / r&b",2008-09-16
+6,36,"hip-hop / r&b",2008-09-15
+30,36,"hip-hop / r&b",2008-09-15
+18,36,"hip-hop / r&b",2008-09-15
+42,36,"hip-hop / r&b",2008-09-15
+6,36,"other",2008-09-15
+47,65,"showtunes",2008-09-16
+29,65,"showtunes",2008-09-16
+47,14,"classical",2008-09-16
+44,14,"classical",2008-09-16
+30,14,"classical",2008-09-15
+46,14,"classical",2008-09-15
+60,14,"classical",2008-09-15
+28,14,"classical",2008-09-15
+42,14,"classical",2008-09-15
+23,14,"classical",2008-09-15
+47,44,"indie / alternative rock",2008-09-16
+46,44,"indie / alternative rock",2008-09-15
+18,44,"indie / alternative rock",2008-09-15
+20,44,"indie / alternative rock",2008-09-15
+6,44,"classic rock",2008-09-15
+46,44,"classic rock",2008-09-15
+47,44,"pop / top 40",2008-09-16
+60,44,"classical",2008-09-15
+47,44,"showtunes",2008-09-16
+19,44,"showtunes",2008-09-15
+30,44,"showtunes",2008-09-15
+46,44,"showtunes",2008-09-15
+6,44,"other",2008-09-15
+20,44,"other",2008-09-15
+47,23,"indie / alternative rock",2008-09-16
+46,23,"indie / alternative rock",2008-09-15
+18,23,"indie / alternative rock",2008-09-15
+47,23,"pop / top 40",2008-09-16
+6,23,"classical",2008-09-15
+6,23,"showtunes",2008-09-15
+19,23,"showtunes",2008-09-15
+2,3,"showtunes",2008-09-15
+2,3,"other",2008-09-15
+27,4,"indie / alternative rock",2008-09-16
+56,4,"indie / alternative rock",2008-09-15
+58,4,"indie / alternative rock",2008-09-15
+24,4,"indie / alternative rock",2008-09-15
+7,4,"classic rock",2008-09-16
+27,4,"classic rock",2008-09-16
+27,4,"heavy metal / hardcore",2008-09-16
+58,4,"pop / top 40",2008-09-15
+7,4,"hip-hop / r&b",2008-09-16
+24,4,"classical",2008-09-15
+7,4,"country / folk",2008-09-16
+6,6,"indie / alternative rock",2008-09-15
+30,6,"indie / alternative rock",2008-09-15
+46,6,"indie / alternative rock",2008-09-15
+23,6,"indie / alternative rock",2008-09-15
+47,6,"classic rock",2008-09-16
+40,6,"classic rock",2008-09-16
+44,6,"classic rock",2008-09-16
+6,6,"classic rock",2008-09-15
+30,6,"classic rock",2008-09-15
+46,6,"classic rock",2008-09-15
+28,6,"classic rock",2008-09-15
+18,6,"classic rock",2008-09-15
+20,6,"classic rock",2008-09-15
+23,6,"classic rock",2008-09-15
+6,6,"techno / lounge / electronic",2008-09-15
+46,6,"techno / lounge / electronic",2008-09-15
+46,6,"jazz",2008-09-15
+40,6,"classical",2008-09-16
+44,6,"classical",2008-09-16
+6,6,"classical",2008-09-15
+6,6,"showtunes",2008-09-15
+6,6,"other",2008-09-15
+47,20,"indie / alternative rock",2008-09-16
+47,20,"classic rock",2008-09-16
+42,20,"classic rock",2008-09-15
+47,20,"heavy metal / hardcore",2008-09-16
+30,20,"heavy metal / hardcore",2008-09-15
+42,20,"heavy metal / hardcore",2008-09-15
+47,20,"pop / top 40",2008-09-16
+47,20,"techno / lounge / electronic",2008-09-16
+47,20,"hip-hop / r&b",2008-09-16
+35,9,"indie / alternative rock",2008-09-15
+4,9,"indie / alternative rock",2008-09-15
+42,9,"heavy metal / hardcore",2008-09-15
+66,9,"techno / lounge / electronic",2008-09-16
+35,9,"techno / lounge / electronic",2008-09-15
+28,9,"techno / lounge / electronic",2008-09-15
+4,9,"techno / lounge / electronic",2008-09-15
+42,9,"techno / lounge / electronic",2008-09-15
+69,9,"hip-hop / r&b",2008-09-16
+4,9,"hip-hop / r&b",2008-09-15
+42,9,"hip-hop / r&b",2008-09-15
+4,9,"classical",2008-09-15
+37,9,"other",2008-09-16
+69,9,"other",2008-09-16
+19,9,"other",2008-09-15
+28,9,"other",2008-09-15
+4,9,"other",2008-09-15
+42,9,"other",2008-09-15
+11,25,"indie / alternative rock",2008-09-16
+47,25,"indie / alternative rock",2008-09-16
+11,25,"classic rock",2008-09-16
+47,25,"classic rock",2008-09-16
+63,25,"heavy metal / hardcore",2008-09-16
+47,25,"heavy metal / hardcore",2008-09-16
+6,25,"heavy metal / hardcore",2008-09-15
+2,25,"heavy metal / hardcore",2008-09-15
+21,27,"indie / alternative rock",2008-09-16
+27,27,"indie / alternative rock",2008-09-16
+56,27,"indie / alternative rock",2008-09-15
+58,27,"indie / alternative rock",2008-09-15
+21,27,"classic rock",2008-09-16
+27,27,"classic rock",2008-09-16
+58,27,"classic rock",2008-09-15
+24,27,"classic rock",2008-09-15
+11,27,"heavy metal / hardcore",2008-09-16
+63,27,"heavy metal / hardcore",2008-09-16
+21,27,"heavy metal / hardcore",2008-09-16
+27,27,"heavy metal / hardcore",2008-09-16
+31,27,"heavy metal / hardcore",2008-09-15
+4,27,"heavy metal / hardcore",2008-09-15
+24,27,"heavy metal / hardcore",2008-09-15
+58,27,"pop / top 40",2008-09-15
+27,27,"other",2008-09-16
+30,60,"indie / alternative rock",2008-09-15
+60,60,"classic rock",2008-09-15
+30,60,"hip-hop / r&b",2008-09-15
+30,60,"classical",2008-09-15
+60,60,"classical",2008-09-15
+20,42,"indie / alternative rock",2008-09-15
+20,42,"classic rock",2008-09-15
+20,42,"pop / top 40",2008-09-15
+28,42,"classical",2008-09-15
+20,42,"classical",2008-09-15
+30,46,"indie / alternative rock",2008-09-15
+20,46,"indie / alternative rock",2008-09-15
+6,46,"classic rock",2008-09-15
+20,46,"classic rock",2008-09-15
+44,46,"techno / lounge / electronic",2008-09-16
+23,46,"techno / lounge / electronic",2008-09-15
+6,46,"other",2008-09-15
+28,46,"other",2008-09-15
+20,46,"other",2008-09-15
+23,46,"other",2008-09-15
+23,71,"techno / lounge / electronic",2008-09-15
+28,71,"other",2008-09-15
+23,71,"other",2008-09-15
+35,69,"indie / alternative rock",2008-09-15
+35,69,"techno / lounge / electronic",2008-09-15
+28,69,"techno / lounge / electronic",2008-09-15
+5,69,"techno / lounge / electronic",2008-09-15
+37,69,"other",2008-09-16
+35,69,"other",2008-09-15
+46,18,"indie / alternative rock",2008-09-15
+48,18,"indie / alternative rock",2008-09-15
+6,18,"classic rock",2008-09-15
+46,18,"classic rock",2008-09-15
+72,18,"pop / top 40",2008-09-16
+6,18,"pop / top 40",2008-09-15
+30,18,"pop / top 40",2008-09-15
+30,18,"hip-hop / r&b",2008-09-15
+67,18,"classical",2008-09-16
+6,18,"classical",2008-09-15
+60,18,"classical",2008-09-15
+23,18,"classical",2008-09-15
+39,18,"showtunes",2008-09-18
+72,18,"showtunes",2008-09-16
+47,18,"showtunes",2008-09-16
+29,18,"showtunes",2008-09-16
+67,18,"showtunes",2008-09-16
+6,18,"showtunes",2008-09-15
+19,18,"showtunes",2008-09-15
+30,18,"showtunes",2008-09-15
+46,18,"showtunes",2008-09-15
+48,18,"showtunes",2008-09-15
+38,18,"showtunes",2008-09-15
+28,18,"showtunes",2008-09-15
+22,18,"showtunes",2008-09-15
+54,18,"showtunes",2008-09-15
+23,18,"showtunes",2008-09-15
+49,18,"showtunes",2008-09-15
+38,18,"other",2008-09-15
+56,31,"indie / alternative rock",2008-09-15
+58,31,"indie / alternative rock",2008-09-15
+4,31,"indie / alternative rock",2008-09-15
+24,31,"indie / alternative rock",2008-09-15
+27,31,"classic rock",2008-09-16
+1,31,"classic rock",2008-09-15
+58,31,"classic rock",2008-09-15
+31,31,"classic rock",2008-09-15
+4,31,"classic rock",2008-09-15
+24,31,"classic rock",2008-09-15
+24,31,"heavy metal / hardcore",2008-09-15
+58,31,"pop / top 40",2008-09-15
+21,31,"techno / lounge / electronic",2008-09-16
+21,31,"classical",2008-09-16
+31,31,"classical",2008-09-15
+4,31,"classical",2008-09-15
+63,31,"country / folk",2008-09-16
+21,31,"country / folk",2008-09-16
+27,31,"country / folk",2008-09-16
+58,31,"country / folk",2008-09-15
+31,31,"country / folk",2008-09-15
+4,31,"country / folk",2008-09-15
+24,31,"country / folk",2008-09-15
+58,16,"indie / alternative rock",2008-09-15
+24,16,"indie / alternative rock",2008-09-15
+58,16,"classic rock",2008-09-15
+11,16,"pop / top 40",2008-09-16
+27,16,"pop / top 40",2008-09-16
+58,16,"pop / top 40",2008-09-15
+11,16,"jazz",2008-09-16
+11,16,"classical",2008-09-16
+63,16,"showtunes",2008-09-16
+18,82,"indie / alternative rock",2008-09-15
+49,82,"classic rock",2008-09-15
+20,82,"techno / lounge / electronic",2008-09-15
+20,82,"other",2008-09-15
+27,63,"indie / alternative rock",2008-09-16
+58,63,"indie / alternative rock",2008-09-15
+21,63,"classic rock",2008-09-16
+1,63,"classic rock",2008-09-15
+83,63,"classic rock",2008-09-15
+58,63,"classic rock",2008-09-15
+55,63,"heavy metal / hardcore",2008-09-19
+11,63,"heavy metal / hardcore",2008-09-16
+63,63,"heavy metal / hardcore",2008-09-16
+21,63,"heavy metal / hardcore",2008-09-16
+27,63,"heavy metal / hardcore",2008-09-16
+1,63,"heavy metal / hardcore",2008-09-15
+83,63,"heavy metal / hardcore",2008-09-15
+58,63,"heavy metal / hardcore",2008-09-15
+31,63,"heavy metal / hardcore",2008-09-15
+55,63,"pop / top 40",2008-09-19
+58,63,"pop / top 40",2008-09-15
+21,63,"techno / lounge / electronic",2008-09-16
+55,63,"hip-hop / r&b",2008-09-19
+11,63,"classical",2008-09-16
+63,63,"classical",2008-09-16
+21,63,"classical",2008-09-16
+27,63,"classical",2008-09-16
+1,63,"classical",2008-09-15
+83,63,"classical",2008-09-15
+61,63,"classical",2008-09-15
+24,63,"classical",2008-09-15
+55,63,"showtunes",2008-09-19
+63,63,"showtunes",2008-09-16
+21,63,"showtunes",2008-09-16
+11,47,"indie / alternative rock",2008-09-16
+47,47,"indie / alternative rock",2008-09-16
+40,47,"indie / alternative rock",2008-09-16
+30,47,"indie / alternative rock",2008-09-15
+38,47,"indie / alternative rock",2008-09-15
+28,47,"indie / alternative rock",2008-09-15
+18,47,"indie / alternative rock",2008-09-15
+20,47,"indie / alternative rock",2008-09-15
+11,47,"classic rock",2008-09-16
+63,47,"classic rock",2008-09-16
+47,47,"classic rock",2008-09-16
+30,47,"classic rock",2008-09-15
+46,47,"classic rock",2008-09-15
+22,47,"classic rock",2008-09-15
+18,47,"classic rock",2008-09-15
+2,47,"classic rock",2008-09-15
+20,47,"classic rock",2008-09-15
+42,47,"classic rock",2008-09-15
+34,47,"classic rock",2008-09-15
+47,47,"heavy metal / hardcore",2008-09-16
+30,47,"heavy metal / hardcore",2008-09-15
+19,47,"pop / top 40",2008-09-15
+20,47,"techno / lounge / electronic",2008-09-15
+2,47,"jazz",2008-09-15
+63,47,"classical",2008-09-16
+47,47,"classical",2008-09-16
+28,47,"classical",2008-09-15
+2,47,"classical",2008-09-15
+23,47,"classical",2008-09-15
+22,47,"other",2008-09-15
+47,19,"showtunes",2008-09-16
+29,19,"showtunes",2008-09-16
+48,19,"showtunes",2008-09-15
+28,19,"showtunes",2008-09-15
+22,19,"showtunes",2008-09-15
+18,19,"showtunes",2008-09-15
+27,56,"indie / alternative rock",2008-09-16
+28,56,"indie / alternative rock",2008-09-15
+58,56,"indie / alternative rock",2008-09-15
+24,56,"indie / alternative rock",2008-09-15
+58,56,"classic rock",2008-09-15
+20,56,"pop / top 40",2008-09-15
+58,56,"pop / top 40",2008-09-15
+58,56,"hip-hop / r&b",2008-09-15
+20,56,"other",2008-09-15
+22,39,"pop / top 40",2008-09-15
+19,39,"showtunes",2008-09-15
+22,39,"showtunes",2008-09-15
+22,39,"other",2008-09-15
+41,13,"jazz",2008-09-15
+47,22,"pop / top 40",2008-09-16
+19,22,"pop / top 40",2008-09-15
+39,22,"showtunes",2008-09-18
+47,22,"showtunes",2008-09-16
+29,22,"showtunes",2008-09-16
+40,22,"showtunes",2008-09-16
+19,22,"showtunes",2008-09-15
+48,22,"showtunes",2008-09-15
+28,22,"showtunes",2008-09-15
+18,22,"showtunes",2008-09-15
+49,22,"showtunes",2008-09-15
+47,22,"other",2008-09-16
+6,29,"classic rock",2008-09-15
+6,29,"techno / lounge / electronic",2008-09-15
+46,29,"classical",2008-09-15
+39,29,"showtunes",2008-09-18
+47,29,"showtunes",2008-09-16
+29,29,"showtunes",2008-09-16
+40,29,"showtunes",2008-09-16
+6,29,"showtunes",2008-09-15
+46,29,"showtunes",2008-09-15
+48,29,"showtunes",2008-09-15
+28,29,"showtunes",2008-09-15
+22,29,"showtunes",2008-09-15
+54,29,"showtunes",2008-09-15
+48,67,"indie / alternative rock",2008-09-15
+58,67,"pop / top 40",2008-09-15
+58,67,"hip-hop / r&b",2008-09-15
+30,67,"classical",2008-09-15
+29,67,"showtunes",2008-09-16
+22,67,"showtunes",2008-09-15
+63,58,"indie / alternative rock",2008-09-16
+21,58,"indie / alternative rock",2008-09-16
+27,58,"indie / alternative rock",2008-09-16
+56,58,"indie / alternative rock",2008-09-15
+58,58,"indie / alternative rock",2008-09-15
+24,58,"indie / alternative rock",2008-09-15
+11,58,"classic rock",2008-09-16
+58,58,"classic rock",2008-09-15
+11,58,"pop / top 40",2008-09-16
+58,58,"pop / top 40",2008-09-15
+24,58,"pop / top 40",2008-09-15
+24,58,"hip-hop / r&b",2008-09-15
+63,58,"classical",2008-09-16
+21,58,"classical",2008-09-16
+27,58,"classical",2008-09-16
+58,58,"classical",2008-09-15
+24,58,"classical",2008-09-15
+27,58,"showtunes",2008-09-16
+18,72,"indie / alternative rock",2008-09-15
+6,72,"classic rock",2008-09-15
+72,72,"pop / top 40",2008-09-16
+6,72,"pop / top 40",2008-09-15
+72,72,"techno / lounge / electronic",2008-09-16
+72,72,"classical",2008-09-16
+72,72,"showtunes",2008-09-16
+47,72,"showtunes",2008-09-16
+29,72,"showtunes",2008-09-16
+40,72,"showtunes",2008-09-16
+6,72,"showtunes",2008-09-15
+19,72,"showtunes",2008-09-15
+48,72,"showtunes",2008-09-15
+38,72,"showtunes",2008-09-15
+28,72,"showtunes",2008-09-15
+22,72,"showtunes",2008-09-15
+18,72,"showtunes",2008-09-15
+23,72,"showtunes",2008-09-15
+49,72,"showtunes",2008-09-15
+72,72,"other",2008-09-16
+28,72,"other",2008-09-15
+11,33,"indie / alternative rock",2008-09-16
+21,33,"indie / alternative rock",2008-09-16
+56,33,"indie / alternative rock",2008-09-15
+58,33,"indie / alternative rock",2008-09-15
+11,33,"classic rock",2008-09-16
+58,33,"classic rock",2008-09-15
+24,33,"classic rock",2008-09-15
+47,33,"heavy metal / hardcore",2008-09-16
+11,33,"pop / top 40",2008-09-16
+30,33,"pop / top 40",2008-09-15
+58,33,"pop / top 40",2008-09-15
+21,33,"techno / lounge / electronic",2008-09-16
+24,33,"techno / lounge / electronic",2008-09-15
+27,33,"showtunes",2008-09-16
+30,33,"showtunes",2008-09-15
+21,33,"other",2008-09-16
+47,33,"other",2008-09-16
+47,73,"heavy metal / hardcore",2008-09-16
+2,73,"heavy metal / hardcore",2008-09-15
+47,73,"techno / lounge / electronic",2008-09-16
+2,73,"techno / lounge / electronic",2008-09-15
+34,73,"other",2008-09-15
+63,83,"indie / alternative rock",2008-09-16
+83,83,"indie / alternative rock",2008-09-15
+11,83,"classic rock",2008-09-16
+63,83,"classic rock",2008-09-16
+83,83,"classic rock",2008-09-15
+83,83,"heavy metal / hardcore",2008-09-15
+83,83,"pop / top 40",2008-09-15
+83,83,"techno / lounge / electronic",2008-09-15
+22,84,"jazz",2008-09-15
+72,84,"classical",2008-09-16
+19,84,"classical",2008-09-15
+22,84,"classical",2008-09-15
+65,84,"classical",2008-09-15
+18,84,"classical",2008-09-15
+19,84,"showtunes",2008-09-15
+22,84,"showtunes",2008-09-15
+6,49,"indie / alternative rock",2008-09-15
+28,49,"indie / alternative rock",2008-09-15
+22,49,"indie / alternative rock",2008-09-15
+2,49,"heavy metal / hardcore",2008-09-15
+20,49,"pop / top 40",2008-09-15
+22,49,"techno / lounge / electronic",2008-09-15
+2,49,"techno / lounge / electronic",2008-09-15
+40,49,"other",2008-09-16
+6,49,"other",2008-09-15
+48,49,"other",2008-09-15
+28,49,"other",2008-09-15
+20,49,"other",2008-09-15
+61,1,"indie / alternative rock",2008-09-15
+61,1,"techno / lounge / electronic",2008-09-15
+61,1,"other",2008-09-15
+60,30,"indie / alternative rock",2008-09-15
+20,30,"indie / alternative rock",2008-09-15
+60,30,"pop / top 40",2008-09-15
+20,30,"pop / top 40",2008-09-15
+20,30,"jazz",2008-09-15
+60,30,"showtunes",2008-09-15
+22,30,"showtunes",2008-09-15
+20,30,"showtunes",2008-09-15
+6,30,"other",2008-09-15
+63,11,"indie / alternative rock",2008-09-16
+27,11,"indie / alternative rock",2008-09-16
+28,11,"indie / alternative rock",2008-09-15
+24,11,"indie / alternative rock",2008-09-15
+63,11,"classic rock",2008-09-16
+27,11,"classic rock",2008-09-16
+24,11,"classic rock",2008-09-15
+63,11,"pop / top 40",2008-09-16
+63,11,"classical",2008-09-16
+63,11,"country / folk",2008-09-16
+27,11,"country / folk",2008-09-16
+30,55,"indie / alternative rock",2008-09-15
+28,55,"indie / alternative rock",2008-09-15
+63,55,"classic rock",2008-09-16
+38,55,"classic rock",2008-09-15
+55,55,"heavy metal / hardcore",2008-09-19
+47,55,"heavy metal / hardcore",2008-09-16
+30,55,"heavy metal / hardcore",2008-09-15
+38,55,"heavy metal / hardcore",2008-09-15
+2,55,"heavy metal / hardcore",2008-09-15
+55,55,"techno / lounge / electronic",2008-09-19
+63,55,"techno / lounge / electronic",2008-09-16
+47,55,"techno / lounge / electronic",2008-09-16
+28,55,"techno / lounge / electronic",2008-09-15
+2,55,"techno / lounge / electronic",2008-09-15
+63,55,"showtunes",2008-09-16
+28,55,"other",2008-09-15
+4,7,"indie / alternative rock",2008-09-15
+4,7,"classic rock",2008-09-15
+21,7,"classical",2008-09-16
+22,7,"showtunes",2008-09-15
+47,26,"showtunes",2008-09-16
+29,26,"showtunes",2008-09-16
+65,26,"other",2008-09-15
+35,28,"indie / alternative rock",2008-09-15
+22,28,"indie / alternative rock",2008-09-15
+28,28,"pop / top 40",2008-09-15
+30,28,"techno / lounge / electronic",2008-09-15
+28,28,"techno / lounge / electronic",2008-09-15
+20,28,"techno / lounge / electronic",2008-09-15
+22,28,"jazz",2008-09-15
+20,28,"jazz",2008-09-15
+11,28,"classical",2008-09-16
+30,28,"classical",2008-09-15
+22,28,"classical",2008-09-15
+46,28,"other",2008-09-15
+28,28,"other",2008-09-15
+20,28,"other",2008-09-15
+1,61,"hip-hop / r&b",2008-09-15
+1,61,"jazz",2008-09-15
+1,61,"classical",2008-09-15
+37,37,"indie / alternative rock",2008-09-16
+37,37,"heavy metal / hardcore",2008-09-16
+37,37,"other",2008-09-16
+58,24,"indie / alternative rock",2008-09-15
+58,24,"pop / top 40",2008-09-15
+47,48,"showtunes",2008-09-16
+29,48,"showtunes",2008-09-16
+22,48,"showtunes",2008-09-15
+65,48,"showtunes",2008-09-15
+49,48,"showtunes",2008-09-15
+28,51,"indie / alternative rock",2008-09-15
+38,51,"classic rock",2008-09-15
+55,51,"heavy metal / hardcore",2008-09-19
+47,51,"heavy metal / hardcore",2008-09-16
+38,51,"heavy metal / hardcore",2008-09-15
+2,51,"heavy metal / hardcore",2008-09-15
+55,51,"techno / lounge / electronic",2008-09-19
+47,51,"techno / lounge / electronic",2008-09-16
+2,51,"techno / lounge / electronic",2008-09-15
+28,51,"other",2008-09-15
+50,50,"indie / alternative rock",2008-09-16
+50,50,"classic rock",2008-09-16
+78,68,"classic rock",2008-12-24
+78,6,"classical",2008-12-24
+77,71,"classical",2008-12-24
+77,71,"other",2008-12-24
+76,10,"techno / lounge / electronic",2008-12-24
+77,18,"showtunes",2008-12-24
+76,82,"other",2008-12-24
+77,47,"indie / alternative rock",2008-12-24
+77,47,"classic rock",2008-12-24
+77,47,"heavy metal / hardcore",2008-12-24
+77,47,"classical",2008-12-24
+77,47,"other",2008-12-24
+76,29,"other",2008-12-24
+76,53,"classical",2008-12-24
+76,28,"classical",2008-12-24
+79,2,"heavy metal / hardcore",2009-03-15
+80,38,"indie / alternative rock",2009-03-14
+79,38,"showtunes",2009-03-15
+80,62,"indie / alternative rock",2009-03-14
+79,62,"classical",2009-03-15
+79,62,"showtunes",2009-03-15
+80,54,"indie / alternative rock",2009-03-14
+79,68,"indie / alternative rock",2009-03-15
+80,68,"indie / alternative rock",2009-03-14
+79,68,"classic rock",2009-03-15
+79,68,"classical",2009-03-15
+79,45,"classical",2009-03-15
+79,32,"indie / alternative rock",2009-03-15
+79,32,"heavy metal / hardcore",2009-03-15
+79,32,"other",2009-03-15
+79,79,"indie / alternative rock",2009-03-15
+79,79,"classic rock",2009-03-15
+79,79,"heavy metal / hardcore",2009-03-15
+79,79,"pop / top 40",2009-03-15
+79,79,"techno / lounge / electronic",2009-03-15
+79,79,"country / folk",2009-03-15
+79,79,"showtunes",2009-03-15
+79,79,"other",2009-03-15
+80,80,"indie / alternative rock",2009-03-14
+80,80,"classic rock",2009-03-14
+80,80,"jazz",2009-03-14
+80,80,"classical",2009-03-14
+80,80,"showtunes",2009-03-14
+80,36,"techno / lounge / electronic",2009-03-14
+80,14,"classical",2009-03-14
+80,44,"classic rock",2009-03-14
+80,44,"jazz",2009-03-14
+80,44,"showtunes",2009-03-14
+80,23,"classical",2009-03-14
+80,23,"showtunes",2009-03-14
+79,6,"classic rock",2009-03-15
+80,6,"classic rock",2009-03-14
+80,46,"classic rock",2009-03-14
+80,10,"classical",2009-03-14
+80,18,"indie / alternative rock",2009-03-14
+79,18,"showtunes",2009-03-15
+80,63,"classical",2009-03-14
+79,47,"indie / alternative rock",2009-03-15
+80,47,"indie / alternative rock",2009-03-14
+80,47,"classic rock",2009-03-14
+80,47,"classical",2009-03-14
+80,33,"indie / alternative rock",2009-03-14
+80,84,"classical",2009-03-14
+80,30,"jazz",2009-03-14
+79,55,"heavy metal / hardcore",2009-03-15
+79,2,"indie / alternative rock",2009-05-22
+28,2,"indie / alternative rock",2009-05-21
+76,2,"indie / alternative rock",2009-05-20
+79,2,"classic rock",2009-05-22
+76,2,"classic rock",2009-05-20
+79,2,"heavy metal / hardcore",2009-05-22
+2,2,"heavy metal / hardcore",2009-05-20
+59,2,"heavy metal / hardcore",2009-05-20
+79,2,"techno / lounge / electronic",2009-05-22
+76,2,"other",2009-05-20
+80,38,"indie / alternative rock",2009-05-20
+79,38,"hip-hop / r&b",2009-05-22
+79,38,"showtunes",2009-05-22
+79,38,"other",2009-05-22
+40,40,"indie / alternative rock",2009-05-21
+6,40,"classic rock",2009-05-30
+40,40,"classic rock",2009-05-21
+72,40,"pop / top 40",2009-05-21
+40,40,"pop / top 40",2009-05-21
+40,40,"techno / lounge / electronic",2009-05-21
+68,40,"techno / lounge / electronic",2009-05-20
+40,40,"hip-hop / r&b",2009-05-21
+29,40,"showtunes",2009-05-27
+72,40,"showtunes",2009-05-21
+6,40,"other",2009-05-30
+72,40,"other",2009-05-21
+76,43,"indie / alternative rock",2009-05-20
+76,43,"classic rock",2009-05-20
+76,43,"jazz",2009-05-20
+76,43,"other",2009-05-20
+2,52,"classic rock",2009-05-20
+8,52,"classic rock",2009-05-20
+21,52,"classic rock",2009-05-20
+52,52,"heavy metal / hardcore",2009-05-28
+27,52,"heavy metal / hardcore",2009-05-21
+70,52,"heavy metal / hardcore",2009-05-20
+21,52,"heavy metal / hardcore",2009-05-20
+70,52,"classical",2009-05-20
+8,52,"classical",2009-05-20
+24,52,"classical",2009-05-20
+59,52,"other",2009-05-20
+40,62,"indie / alternative rock",2009-05-21
+2,62,"indie / alternative rock",2009-05-20
+8,62,"indie / alternative rock",2009-05-20
+80,62,"indie / alternative rock",2009-05-20
+43,62,"classic rock",2009-05-29
+15,62,"techno / lounge / electronic",2009-05-20
+2,62,"techno / lounge / electronic",2009-05-20
+15,62,"jazz",2009-05-20
+80,62,"jazz",2009-05-20
+43,62,"classical",2009-05-29
+40,62,"classical",2009-05-21
+69,62,"classical",2009-05-20
+70,62,"classical",2009-05-20
+15,62,"classical",2009-05-20
+23,62,"classical",2009-05-20
+80,62,"classical",2009-05-20
+68,62,"classical",2009-05-20
+43,62,"country / folk",2009-05-29
+15,62,"showtunes",2009-05-20
+8,62,"showtunes",2009-05-20
+15,62,"other",2009-05-20
+6,75,"other",2009-05-30
+40,75,"other",2009-05-21
+59,5,"hip-hop / r&b",2009-05-20
+42,5,"hip-hop / r&b",2009-05-20
+42,5,"jazz",2009-05-20
+35,5,"classical",2009-05-20
+59,5,"classical",2009-05-20
+42,5,"classical",2009-05-20
+20,5,"classical",2009-05-20
+35,17,"indie / alternative rock",2009-05-20
+35,17,"pop / top 40",2009-05-20
+35,17,"showtunes",2009-05-20
+8,8,"indie / alternative rock",2009-05-20
+8,8,"pop / top 40",2009-05-20
+70,8,"classical",2009-05-20
+8,8,"classical",2009-05-20
+7,57,"indie / alternative rock",2009-06-04
+11,57,"indie / alternative rock",2009-05-29
+52,57,"indie / alternative rock",2009-05-28
+27,57,"indie / alternative rock",2009-05-21
+56,57,"indie / alternative rock",2009-05-20
+4,57,"indie / alternative rock",2009-05-20
+52,57,"classic rock",2009-05-28
+24,57,"classic rock",2009-05-20
+11,57,"heavy metal / hardcore",2009-05-29
+52,57,"pop / top 40",2009-05-28
+27,57,"showtunes",2009-05-21
+59,54,"indie / alternative rock",2009-05-20
+80,54,"indie / alternative rock",2009-05-20
+68,54,"indie / alternative rock",2009-05-20
+68,54,"pop / top 40",2009-05-20
+77,59,"indie / alternative rock",2009-05-21
+2,59,"indie / alternative rock",2009-05-20
+23,59,"indie / alternative rock",2009-05-20
+2,59,"classic rock",2009-05-20
+5,59,"classic rock",2009-05-20
+79,59,"heavy metal / hardcore",2009-05-22
+42,59,"heavy metal / hardcore",2009-05-20
+5,59,"heavy metal / hardcore",2009-05-20
+77,59,"classical",2009-05-21
+35,66,"classical",2009-05-20
+5,66,"classical",2009-05-20
+6,79,"indie / alternative rock",2009-05-30
+40,79,"indie / alternative rock",2009-05-21
+2,79,"indie / alternative rock",2009-05-20
+68,79,"indie / alternative rock",2009-05-20
+6,79,"classic rock",2009-05-30
+76,79,"classic rock",2009-05-20
+68,79,"classic rock",2009-05-20
+40,79,"heavy metal / hardcore",2009-05-21
+76,79,"country / folk",2009-05-20
+29,79,"showtunes",2009-05-27
+40,79,"showtunes",2009-05-21
+28,79,"showtunes",2009-05-21
+68,79,"showtunes",2009-05-20
+40,79,"other",2009-05-21
+76,79,"other",2009-05-20
+79,68,"indie / alternative rock",2009-05-22
+40,68,"indie / alternative rock",2009-05-21
+80,68,"indie / alternative rock",2009-05-20
+68,68,"indie / alternative rock",2009-05-20
+68,68,"classic rock",2009-05-20
+40,68,"heavy metal / hardcore",2009-05-21
+68,68,"techno / lounge / electronic",2009-05-20
+79,68,"classical",2009-05-22
+68,68,"classical",2009-05-20
+29,68,"showtunes",2009-05-27
+40,68,"other",2009-05-21
+69,35,"indie / alternative rock",2009-05-20
+35,35,"indie / alternative rock",2009-05-20
+69,35,"classic rock",2009-05-20
+35,35,"classic rock",2009-05-20
+79,45,"classical",2009-05-22
+35,45,"classical",2009-05-20
+8,45,"classical",2009-05-20
+5,45,"classical",2009-05-20
+79,32,"indie / alternative rock",2009-05-22
+40,32,"indie / alternative rock",2009-05-21
+68,32,"indie / alternative rock",2009-05-20
+79,32,"heavy metal / hardcore",2009-05-22
+40,32,"heavy metal / hardcore",2009-05-21
+59,32,"heavy metal / hardcore",2009-05-20
+68,32,"heavy metal / hardcore",2009-05-20
+29,32,"showtunes",2009-05-27
+68,32,"showtunes",2009-05-20
+2,70,"classical",2009-05-20
+8,70,"classical",2009-05-20
+8,70,"showtunes",2009-05-20
+52,21,"indie / alternative rock",2009-05-28
+27,21,"indie / alternative rock",2009-05-21
+56,21,"indie / alternative rock",2009-05-20
+21,21,"indie / alternative rock",2009-05-20
+52,21,"classic rock",2009-05-28
+27,21,"classic rock",2009-05-21
+28,21,"classic rock",2009-05-21
+21,21,"classic rock",2009-05-20
+24,21,"classic rock",2009-05-20
+52,21,"heavy metal / hardcore",2009-05-28
+27,21,"heavy metal / hardcore",2009-05-21
+21,21,"heavy metal / hardcore",2009-05-20
+21,21,"techno / lounge / electronic",2009-05-20
+63,21,"classical",2009-05-22
+27,21,"classical",2009-05-21
+21,21,"classical",2009-05-20
+27,21,"country / folk",2009-05-21
+28,21,"country / folk",2009-05-21
+21,21,"country / folk",2009-05-20
+63,21,"other",2009-05-22
+42,80,"indie / alternative rock",2009-05-20
+80,80,"indie / alternative rock",2009-05-20
+20,80,"indie / alternative rock",2009-05-20
+80,80,"classic rock",2009-05-20
+42,80,"jazz",2009-05-20
+80,80,"jazz",2009-05-20
+43,80,"classical",2009-05-29
+44,80,"classical",2009-05-21
+46,80,"classical",2009-05-20
+42,80,"classical",2009-05-20
+80,80,"classical",2009-05-20
+42,80,"showtunes",2009-05-20
+80,80,"showtunes",2009-05-20
+46,36,"indie / alternative rock",2009-05-20
+46,36,"classic rock",2009-05-20
+46,36,"heavy metal / hardcore",2009-05-20
+6,36,"pop / top 40",2009-05-30
+46,36,"pop / top 40",2009-05-20
+5,36,"pop / top 40",2009-05-20
+6,36,"techno / lounge / electronic",2009-05-30
+28,36,"techno / lounge / electronic",2009-05-21
+69,36,"techno / lounge / electronic",2009-05-20
+23,36,"techno / lounge / electronic",2009-05-20
+59,36,"techno / lounge / electronic",2009-05-20
+46,36,"techno / lounge / electronic",2009-05-20
+42,36,"techno / lounge / electronic",2009-05-20
+80,36,"techno / lounge / electronic",2009-05-20
+5,36,"techno / lounge / electronic",2009-05-20
+20,36,"techno / lounge / electronic",2009-05-20
+6,36,"hip-hop / r&b",2009-05-30
+46,36,"hip-hop / r&b",2009-05-20
+46,36,"jazz",2009-05-20
+46,36,"showtunes",2009-05-20
+6,36,"other",2009-05-30
+26,65,"indie / alternative rock",2009-05-21
+65,65,"indie / alternative rock",2009-05-20
+26,65,"classic rock",2009-05-21
+65,65,"classic rock",2009-05-20
+26,65,"heavy metal / hardcore",2009-05-21
+65,65,"heavy metal / hardcore",2009-05-20
+26,65,"pop / top 40",2009-05-21
+65,65,"pop / top 40",2009-05-20
+26,65,"techno / lounge / electronic",2009-05-21
+65,65,"techno / lounge / electronic",2009-05-20
+26,65,"hip-hop / r&b",2009-05-21
+65,65,"hip-hop / r&b",2009-05-20
+26,65,"showtunes",2009-05-21
+65,65,"showtunes",2009-05-20
+26,65,"other",2009-05-21
+65,65,"other",2009-05-20
+28,14,"jazz",2009-05-21
+6,14,"classical",2009-05-30
+40,14,"classical",2009-05-21
+28,14,"classical",2009-05-21
+23,14,"classical",2009-05-20
+80,14,"classical",2009-05-20
+46,44,"classic rock",2009-05-20
+80,44,"classic rock",2009-05-20
+80,44,"jazz",2009-05-20
+28,44,"classical",2009-05-21
+46,44,"classical",2009-05-20
+46,44,"showtunes",2009-05-20
+80,44,"showtunes",2009-05-20
+6,23,"classic rock",2009-05-30
+43,23,"hip-hop / r&b",2009-05-29
+40,23,"jazz",2009-05-21
+43,23,"classical",2009-05-29
+40,23,"classical",2009-05-21
+2,23,"classical",2009-05-20
+46,23,"classical",2009-05-20
+80,23,"classical",2009-05-20
+43,23,"country / folk",2009-05-29
+46,23,"showtunes",2009-05-20
+2,3,"showtunes",2009-05-20
+7,4,"classic rock",2009-06-04
+27,4,"classic rock",2009-05-21
+56,4,"pop / top 40",2009-05-20
+7,4,"hip-hop / r&b",2009-06-04
+21,4,"hip-hop / r&b",2009-05-20
+7,4,"jazz",2009-06-04
+21,4,"jazz",2009-05-20
+7,4,"country / folk",2009-06-04
+28,6,"indie / alternative rock",2009-05-21
+59,6,"indie / alternative rock",2009-05-20
+6,6,"classic rock",2009-05-30
+43,6,"classic rock",2009-05-29
+29,6,"classic rock",2009-05-27
+79,6,"classic rock",2009-05-22
+40,6,"classic rock",2009-05-21
+28,6,"classic rock",2009-05-21
+23,6,"classic rock",2009-05-20
+46,6,"classic rock",2009-05-20
+42,6,"classic rock",2009-05-20
+80,6,"classic rock",2009-05-20
+20,6,"classic rock",2009-05-20
+6,6,"techno / lounge / electronic",2009-05-30
+40,6,"techno / lounge / electronic",2009-05-21
+40,6,"jazz",2009-05-21
+28,6,"jazz",2009-05-21
+46,6,"jazz",2009-05-20
+6,6,"classical",2009-05-30
+40,6,"classical",2009-05-21
+6,6,"other",2009-05-30
+40,6,"other",2009-05-21
+42,9,"heavy metal / hardcore",2009-05-20
+37,9,"techno / lounge / electronic",2009-05-22
+28,9,"techno / lounge / electronic",2009-05-21
+69,9,"techno / lounge / electronic",2009-05-20
+35,9,"techno / lounge / electronic",2009-05-20
+42,9,"techno / lounge / electronic",2009-05-20
+4,9,"techno / lounge / electronic",2009-05-20
+69,9,"hip-hop / r&b",2009-05-20
+35,9,"hip-hop / r&b",2009-05-20
+42,9,"hip-hop / r&b",2009-05-20
+4,9,"hip-hop / r&b",2009-05-20
+5,9,"hip-hop / r&b",2009-05-20
+20,9,"hip-hop / r&b",2009-05-20
+4,9,"classical",2009-05-20
+28,9,"other",2009-05-21
+69,9,"other",2009-05-20
+35,9,"other",2009-05-20
+4,9,"other",2009-05-20
+2,25,"indie / alternative rock",2009-05-20
+2,25,"classic rock",2009-05-20
+2,25,"heavy metal / hardcore",2009-05-20
+11,27,"indie / alternative rock",2009-05-29
+21,27,"indie / alternative rock",2009-05-20
+24,27,"indie / alternative rock",2009-05-20
+52,27,"classic rock",2009-05-28
+24,27,"classic rock",2009-05-20
+11,27,"heavy metal / hardcore",2009-05-29
+52,27,"heavy metal / hardcore",2009-05-28
+63,27,"heavy metal / hardcore",2009-05-22
+21,27,"heavy metal / hardcore",2009-05-20
+43,46,"indie / alternative rock",2009-05-29
+43,46,"classic rock",2009-05-29
+46,46,"classic rock",2009-05-20
+80,46,"classic rock",2009-05-20
+28,46,"techno / lounge / electronic",2009-05-21
+46,46,"showtunes",2009-05-20
+44,46,"other",2009-05-21
+23,46,"other",2009-05-20
+46,46,"other",2009-05-20
+77,71,"indie / alternative rock",2009-05-21
+77,71,"classic rock",2009-05-21
+77,71,"techno / lounge / electronic",2009-05-21
+77,71,"jazz",2009-05-21
+77,71,"classical",2009-05-21
+77,71,"showtunes",2009-05-21
+35,69,"techno / lounge / electronic",2009-05-20
+42,69,"techno / lounge / electronic",2009-05-20
+5,69,"techno / lounge / electronic",2009-05-20
+20,69,"techno / lounge / electronic",2009-05-20
+35,69,"showtunes",2009-05-20
+80,18,"indie / alternative rock",2009-05-20
+6,18,"classic rock",2009-05-30
+68,18,"heavy metal / hardcore",2009-05-20
+72,18,"pop / top 40",2009-05-21
+72,18,"techno / lounge / electronic",2009-05-21
+26,18,"techno / lounge / electronic",2009-05-21
+23,18,"classical",2009-05-20
+6,18,"showtunes",2009-05-30
+29,18,"showtunes",2009-05-27
+79,18,"showtunes",2009-05-22
+72,18,"showtunes",2009-05-21
+28,18,"showtunes",2009-05-21
+26,18,"showtunes",2009-05-21
+76,18,"showtunes",2009-05-20
+80,18,"showtunes",2009-05-20
+68,18,"showtunes",2009-05-20
+65,18,"showtunes",2009-05-20
+6,18,"other",2009-05-30
+72,18,"other",2009-05-21
+26,18,"other",2009-05-21
+11,31,"indie / alternative rock",2009-05-29
+27,31,"indie / alternative rock",2009-05-21
+56,31,"indie / alternative rock",2009-05-20
+4,31,"indie / alternative rock",2009-05-20
+21,31,"indie / alternative rock",2009-05-20
+24,31,"indie / alternative rock",2009-05-20
+27,31,"classic rock",2009-05-21
+21,31,"classic rock",2009-05-20
+24,31,"classic rock",2009-05-20
+63,31,"heavy metal / hardcore",2009-05-22
+21,31,"techno / lounge / electronic",2009-05-20
+21,31,"classical",2009-05-20
+11,31,"country / folk",2009-05-29
+63,31,"country / folk",2009-05-22
+27,31,"country / folk",2009-05-21
+21,31,"country / folk",2009-05-20
+35,81,"indie / alternative rock",2009-05-20
+35,81,"classic rock",2009-05-20
+77,77,"indie / alternative rock",2009-05-21
+43,77,"classic rock",2009-05-29
+77,77,"classic rock",2009-05-21
+43,77,"heavy metal / hardcore",2009-05-29
+77,77,"heavy metal / hardcore",2009-05-21
+76,77,"heavy metal / hardcore",2009-05-20
+76,77,"techno / lounge / electronic",2009-05-20
+77,77,"classical",2009-05-21
+77,77,"showtunes",2009-05-21
+76,77,"other",2009-05-20
+2,76,"indie / alternative rock",2009-05-20
+43,76,"classic rock",2009-05-29
+76,76,"classic rock",2009-05-20
+2,76,"classic rock",2009-05-20
+43,76,"heavy metal / hardcore",2009-05-29
+76,76,"heavy metal / hardcore",2009-05-20
+76,76,"other",2009-05-20
+27,16,"indie / alternative rock",2009-05-21
+24,16,"indie / alternative rock",2009-05-20
+27,16,"pop / top 40",2009-05-21
+21,16,"classical",2009-05-20
+21,16,"country / folk",2009-05-20
+49,82,"other",2009-05-30
+1,63,"indie / alternative rock",2009-05-20
+21,63,"indie / alternative rock",2009-05-20
+24,63,"indie / alternative rock",2009-05-20
+27,63,"classic rock",2009-05-21
+21,63,"classic rock",2009-05-20
+27,63,"heavy metal / hardcore",2009-05-21
+1,63,"heavy metal / hardcore",2009-05-20
+21,63,"heavy metal / hardcore",2009-05-20
+27,63,"pop / top 40",2009-05-21
+24,63,"pop / top 40",2009-05-20
+11,63,"classical",2009-05-29
+61,63,"classical",2009-05-21
+1,63,"classical",2009-05-20
+21,63,"classical",2009-05-20
+21,63,"country / folk",2009-05-20
+6,47,"indie / alternative rock",2009-05-30
+79,47,"indie / alternative rock",2009-05-22
+28,47,"indie / alternative rock",2009-05-21
+2,47,"indie / alternative rock",2009-05-20
+23,47,"indie / alternative rock",2009-05-20
+59,47,"indie / alternative rock",2009-05-20
+80,47,"indie / alternative rock",2009-05-20
+68,47,"indie / alternative rock",2009-05-20
+79,47,"classic rock",2009-05-22
+40,47,"classic rock",2009-05-21
+28,47,"classic rock",2009-05-21
+76,47,"classic rock",2009-05-20
+2,47,"classic rock",2009-05-20
+42,47,"classic rock",2009-05-20
+68,47,"classic rock",2009-05-20
+2,47,"heavy metal / hardcore",2009-05-20
+23,47,"pop / top 40",2009-05-20
+6,47,"classical",2009-05-30
+28,47,"classical",2009-05-21
+68,47,"classical",2009-05-20
+5,47,"classical",2009-05-20
+10,19,"classic rock",2009-05-20
+10,19,"pop / top 40",2009-05-20
+28,19,"classical",2009-05-21
+29,19,"showtunes",2009-05-27
+28,19,"showtunes",2009-05-21
+22,19,"showtunes",2009-05-20
+10,19,"other",2009-05-20
+65,19,"other",2009-05-20
+24,56,"indie / alternative rock",2009-05-20
+24,56,"pop / top 40",2009-05-20
+24,56,"hip-hop / r&b",2009-05-20
+22,39,"other",2009-05-20
+72,22,"pop / top 40",2009-05-21
+49,22,"showtunes",2009-05-30
+72,22,"showtunes",2009-05-21
+46,22,"showtunes",2009-05-20
+72,22,"other",2009-05-21
+6,29,"classic rock",2009-05-30
+6,29,"showtunes",2009-05-30
+2,29,"showtunes",2009-05-20
+76,29,"other",2009-05-20
+29,67,"showtunes",2009-05-27
+22,67,"showtunes",2009-05-20
+27,58,"indie / alternative rock",2009-05-21
+56,58,"indie / alternative rock",2009-05-20
+4,58,"indie / alternative rock",2009-05-20
+24,58,"indie / alternative rock",2009-05-20
+11,58,"pop / top 40",2009-05-29
+27,58,"pop / top 40",2009-05-21
+24,58,"pop / top 40",2009-05-20
+21,58,"techno / lounge / electronic",2009-05-20
+11,58,"classical",2009-05-29
+27,58,"classical",2009-05-21
+28,58,"classical",2009-05-21
+4,58,"classical",2009-05-20
+24,58,"classical",2009-05-20
+27,58,"showtunes",2009-05-21
+29,72,"classic rock",2009-05-27
+49,72,"showtunes",2009-05-30
+6,72,"showtunes",2009-05-30
+29,72,"showtunes",2009-05-27
+40,72,"showtunes",2009-05-21
+28,72,"showtunes",2009-05-21
+80,72,"showtunes",2009-05-20
+6,72,"other",2009-05-30
+11,33,"indie / alternative rock",2009-05-29
+56,33,"indie / alternative rock",2009-05-20
+34,34,"other",2009-05-20
+2,34,"other",2009-05-20
+34,73,"other",2009-05-20
+2,73,"other",2009-05-20
+2,83,"jazz",2009-05-20
+72,84,"classical",2009-05-21
+40,84,"classical",2009-05-21
+28,84,"classical",2009-05-21
+69,84,"classical",2009-05-20
+35,84,"classical",2009-05-20
+80,84,"classical",2009-05-20
+65,84,"classical",2009-05-20
+29,84,"showtunes",2009-05-27
+72,84,"showtunes",2009-05-21
+28,84,"showtunes",2009-05-21
+72,84,"other",2009-05-21
+28,49,"indie / alternative rock",2009-05-21
+26,49,"classical",2009-05-21
+6,49,"other",2009-05-30
+40,49,"other",2009-05-21
+28,49,"other",2009-05-21
+61,1,"indie / alternative rock",2009-05-21
+61,1,"other",2009-05-21
+20,30,"indie / alternative rock",2009-05-20
+42,30,"pop / top 40",2009-05-20
+20,30,"pop / top 40",2009-05-20
+80,30,"jazz",2009-05-20
+20,30,"jazz",2009-05-20
+28,30,"other",2009-05-21
+63,11,"indie / alternative rock",2009-05-22
+28,11,"indie / alternative rock",2009-05-21
+24,11,"indie / alternative rock",2009-05-20
+28,11,"classic rock",2009-05-21
+40,53,"classical",2009-05-21
+28,53,"classical",2009-05-21
+76,53,"classical",2009-05-20
+28,55,"indie / alternative rock",2009-05-21
+2,55,"indie / alternative rock",2009-05-20
+2,55,"classic rock",2009-05-20
+28,55,"heavy metal / hardcore",2009-05-21
+2,55,"heavy metal / hardcore",2009-05-20
+23,55,"heavy metal / hardcore",2009-05-20
+28,55,"techno / lounge / electronic",2009-05-21
+2,55,"techno / lounge / electronic",2009-05-20
+2,55,"other",2009-05-20
+4,7,"indie / alternative rock",2009-05-20
+4,7,"classic rock",2009-05-20
+4,7,"showtunes",2009-05-20
+26,26,"indie / alternative rock",2009-05-21
+29,26,"showtunes",2009-05-27
+26,26,"other",2009-05-21
+65,26,"other",2009-05-20
+28,28,"indie / alternative rock",2009-05-21
+28,28,"classic rock",2009-05-21
+28,28,"pop / top 40",2009-05-21
+6,28,"techno / lounge / electronic",2009-05-30
+28,28,"techno / lounge / electronic",2009-05-21
+28,28,"hip-hop / r&b",2009-05-21
+28,28,"jazz",2009-05-21
+11,28,"classical",2009-05-29
+28,28,"classical",2009-05-21
+28,28,"country / folk",2009-05-21
+28,28,"other",2009-05-21
+28,61,"indie / alternative rock",2009-05-21
+28,61,"classic rock",2009-05-21
+28,61,"heavy metal / hardcore",2009-05-21
+1,61,"hip-hop / r&b",2009-05-20
+1,61,"jazz",2009-05-20
+1,61,"classical",2009-05-20
+37,37,"indie / alternative rock",2009-05-22
+28,48,"pop / top 40",2009-05-21
+29,48,"showtunes",2009-05-27
+28,51,"indie / alternative rock",2009-05-21
+52,51,"heavy metal / hardcore",2009-05-28
+28,51,"heavy metal / hardcore",2009-05-21
+28,51,"techno / lounge / electronic",2009-05-21
+22,51,"showtunes",2009-05-20
+2,51,"other",2009-05-20
+35,50,"indie / alternative rock",2009-05-20
+35,50,"classic rock",2009-05-20
