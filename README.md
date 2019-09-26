@@ -4,9 +4,15 @@ PyTorch code for our paper on [Learning Temporal Attention in Dynamic Graphs wit
 
 Data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
 
-Running the model with a learned graph, sparse prior and biliear interactions:
+Running the baseline DyRep model [1]:
+
+`python main.py --log_interval 300  --epochs 5 --data_dir ./SocialEvolution/`.
+
+Running our latent dynamic graph (LDG) model with a learned graph, sparse prior and biliear interactions:
 
 `python main.py --log_interval 300  --epochs 5 --data_dir ./SocialEvolution/ --encoder mlp --bilinear --sparse`
+
+Note that our default option is to filter `Proximity` events by their probability: `--prob 0.8`. In the DyRep paper, they use all events, i.e. `--prob 0.8`. When we compare results in our paper, we use the same `--prob 0.8` for all methods.
 
 If you make use of this code, we appreciate it if you can cite our paper as follows:
 
@@ -22,3 +28,6 @@ If you make use of this code, we appreciate it if you can cite our paper as foll
   eprint        = "1909.10367"
 }
 ```
+
+[1] [Rakshit Trivedi, Mehrdad Farajtabar, Prasenjeet Biswal, and Hongyuan Zha. DyRep: Learning
+representations over dynamic graphs. In ICLR, 2019](https://openreview.net/forum?id=HyePrhR5KX)
