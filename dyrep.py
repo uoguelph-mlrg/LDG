@@ -558,8 +558,7 @@ class DyRep(nn.Module):
                             time_keys = np.array(self.time_keys)
                             time_keys[:-1] = time_keys[1:]
                             self.time_keys = list(time_keys[:-1])  # remove last
-
-                            self.Lambda_dict[:-1] = self.Lambda_dict[1:]
+                            self.Lambda_dict[:-1] = self.Lambda_dict.clone()[1:]
                             self.Lambda_dict[-1] = 0
 
                         self.Lambda_dict[len(self.time_keys)] = Lambda[idx].sum().detach()  # total intensity of non events for the current time step
