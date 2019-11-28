@@ -2,7 +2,13 @@
 
 PyTorch code for our paper on [Learning Temporal Attention in Dynamic Graphs with Bilinear Interactions](https://arxiv.org/abs/1909.10367).
 
-Data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
+## Data
+
+All data are uploaded to this repo. The original data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
+
+Before running the code, unpack `Proximity.csv.bz2`, e.g. by running `bzip2 -d Proximity.csv.bz2` inside the SocialEvolution folder.
+
+## Examples
 
 Running the baseline DyRep model [1]:
 
@@ -18,8 +24,7 @@ If you make use of this code, we appreciate it if you can cite our paper as foll
 
 ```
 @ARTICLE{Knyazev2019-zj,
-  title         = "Learning Temporal Attention in Dynamic Graphs with Bilinear
-                   Interactions",
+  title         = "Learning Temporal Attention in Dynamic Graphs with Bilinear Interactions",
   author        = "Knyazev, Boris and Augusta, Carolyn and Taylor, Graham W",
   month         =  sep,
   year          =  2019,
