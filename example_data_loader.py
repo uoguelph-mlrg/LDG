@@ -42,7 +42,9 @@ class ExampleDataset(EventsDataset):
         for i in range(self.n_events):
             user_id1 = np.random.randint(0, self.N_nodes)
             user_id2 = np.random.choice(np.delete(np.arange(self.N_nodes), user_id1))
-            event_time = datetime.fromordinal(max((time_start, self.FIRST_DATE.toordinal())) + np.random.randint(0, time_end) )
+            ts = max((time_start, self.FIRST_DATE.toordinal()))
+            event_time = datetime.fromordinal(ts + np.random.randint(0, time_end - ts) )
+            assert event_time.timestamp() >= self.FIRST_DATE.timestamp(), (event_time, self.FIRST_DATE)
             all_events.append((user_id1, user_id2, np.random.choice(['communication event',
                                                                      'association event']), event_time))
 

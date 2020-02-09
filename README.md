@@ -9,7 +9,7 @@ All necessary data are uploaded to this repo.
 **Social Evolution.** The original data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
 Before running the code, unpack `Proximity.csv.bz2`, e.g. by running `bzip2 -d Proximity.csv.bz2` inside the SocialEvolution folder.
 
-**Github.** The original data can be accessed [here](https://www.gharchive.org/). In this repo I extract a subnetwork of 284 users with relatively dense events between each other. Each user initiated at least 200 communication and 7 association events during the year of 2013. "Follow" events in 2011-2012 are considered initial associations. Communication events include: Watch, Star, Fork, Push, Issues, IssueComment, PullRequest, Commit. This results in a dataset of 284 nodes and around 10k training events (from December to August 2013) and 8k test events (from September to December 2013) .
+**Github.** The original data can be accessed [here](https://www.gharchive.org/). In this repo we extract a subnetwork of 284 users with relatively dense events between each other. Each user initiated at least 200 communication and 7 association events during the year of 2013. "Follow" events in 2011-2012 are considered as initial associations. Communication events include: Watch, Star, Fork, Push, Issues, IssueComment, PullRequest, Commit. This results in a dataset of 284 nodes and around 10k training events (from December to August 2013) and 8k test events (from September to December 2013) .
 
 ## Examples
 
@@ -34,7 +34,7 @@ To use the Frequency bias, add the `--freq` flag.
 
 ### Other datasets
 
-I provide the base class [data_loader.py](data_loader.py), showing which class attributes and functions must be implemented if you want to train our model on your own data. Plus I added [example_data_loader.py](example_data_loader.py), showing an example of using the base class.
+I provide the base class [data_loader.py](data_loader.py), showing which class attributes and functions must be implemented if you want to train our model on other datasets. Plus I added [example_data_loader.py](example_data_loader.py), showing a minimal example of using the base class.
 
 
 ## Citation 
@@ -42,7 +42,7 @@ I provide the base class [data_loader.py](data_loader.py), showing which class a
 If you make use of this code, we appreciate it if you can cite our paper as follows:
 
 ```
-@ARTICLE{Knyazev2019-zj,
+@ARTICLE{knyazev2019learning,
   title         = "Learning Temporal Attention in Dynamic Graphs with Bilinear Interactions",
   author        = "Knyazev, Boris and Augusta, Carolyn and Taylor, Graham W",
   month         =  sep,
