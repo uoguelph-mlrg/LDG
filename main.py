@@ -233,8 +233,11 @@ if __name__ == '__main__':
     experiment_ID = '%s_%06d' % (platform.node(), dt.microsecond)
     print('experiment_ID: ', experiment_ID)
 
-    gitcommit = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
-    print('gitcommit', gitcommit)
+    try:
+        gitcommit = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
+        print('gitcommit', gitcommit)
+    except Exception as e:
+        print('gitcommit is not available', e)
 
     # Set seed
     np.random.seed(args.seed)
