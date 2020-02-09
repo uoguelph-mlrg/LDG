@@ -111,6 +111,8 @@ class MLPEncoder(nn.Module):
         self.bilinear = bilinear
         self.n_stages = n_stages
         self.sym = sym
+        if self.sym:
+            raise NotImplementedError('')
 
         self.mlp1 = MLP(n_in, n_hid, n_hid, do_prob, bnorm=bnorm)
         self.mlp2 = MLP(n_hid * (1 if bilinear else 2), n_hid, n_hid, do_prob, bilinear=bilinear, bnorm=bnorm)
@@ -118,10 +120,10 @@ class MLPEncoder(nn.Module):
         if n_stages == 2:
             self.mlp3 = MLP(n_hid, n_hid, n_hid, do_prob)
             if self.factor:
-                self.mlp4 = MLP(n_hid * (2 if bilinear else 3), n_hid, n_hid, do_prob, bilinear=bilinear, bnorm=bnorm)
+                self.mlp4 = MLP(n_hid * (2 if bilinear else 3), n_hid, n_hid, do_prob, bilinear=bilinear, bnorm=False)
                 print("Using factor graph MLP encoder.")
             else:
-                self.mlp4 = MLP(n_hid * (1 if bilinear else 2), n_hid, n_hid, do_prob, bilinear=bilinear, bnorm=bnorm)
+                self.mlp4 = MLP(n_hid * (1 if bilinear else 2), n_hid, n_hid, do_prob, bilinear=bilinear, bnorm=False)
                 print("Using MLP encoder.")
         self.fc_out = nn.Linear(n_hid, n_out)
         self.init_weights()
@@ -142,18 +144,13 @@ class MLPEncoder(nn.Module):
 
     def node2edge(self, x):
         # NOTE: Assumes that we have the same graph across all samples.
-        # receivers = torch.matmul(rel_rec, x)
-        # senders = torch.matmul(rel_send, x)
-        # edges = torch.cat([receivers, senders], dim=2)
         N = x.shape[0]
-        mask = x.new(1, N).fill_(1)
-        node_i = torch.nonzero(mask).repeat(1, N).view(-1, 1)
-        node_j = torch.nonzero(mask).repeat(N, 1).view(-1, 1)
+        node_i = torch.arange(N).view(N, 1).repeat(1, N).view(-1, 1)
+        node_j = torch.arange(N).view(N, 1).repeat(N, 1).view(-1, 1)
         if self.sym:
             triu = (node_i < node_j).squeeze()  # skip loops and symmetric connections
         else:
             triu = (node_i != node_j).squeeze()  # skip loops
-        # TODO: make symmetric??
         idx = (node_i * N + node_j)[triu].squeeze()  # linear index
         if self.bilinear:
             edges = (x[node_i[triu]], x[node_j[triu]])
@@ -170,9 +167,8 @@ class MLPEncoder(nn.Module):
         return edges
 
 
-    def forward(self, inputs, u, v):
+    def forward(self, inputs, edges=None):
         # Input shape: [num_sims, num_atoms, num_timesteps, num_dims]
-        # x = inputs.view(inputs.size(0), inputs.size(1), -1)
         # New shape: [num_sims, num_atoms, num_timesteps*num_dims]
         x = inputs  # N,n_hid
         N = x.shape[0]
@@ -183,19 +179,18 @@ class MLPEncoder(nn.Module):
         x = self.mlp2(x)  # f_e^1: get edge embeddings (N,N,n_hid)
 
         if self.n_stages == 2:
-            x_skip = x  # N*(N-1)/2, n_hid
+            x_skip = x  # edge embeddings: N*(N-1)/2, n_hid
             x = self.edges2matrix(x, idx, N)  # N,N,n_hid
 
-            x_skip = self.edges2matrix(x_skip, idx, N)  # N,N,n_hid
-            if self.sym:
-                if v < u:
-                    assert torch.all(x_skip[u, v] == 0), (u, v, x_skip[v, u])
-                    x_skip = x_skip[v, u].view(1, -1)  # 2,n_hid
-                else:
-                    assert torch.all(x_skip[v, u] == 0), (u, v, x_skip[v, u])
-                    x_skip = x_skip[u, v].view(1, -1)  # 2,n_hid
-            else:
+            if edges is not None:
+                x_skip = self.edges2matrix(x_skip, idx, N)  # N,N,n_hid
+
+                u, v = edges[0, 0].item(), edges[0, 1].item()
+
                 x_skip = torch.cat((x_skip[u, v].view(1, -1), x_skip[v, u].view(1, -1)), dim=0)  # 2,n_hid
+
+                if self.sym:
+                    raise NotImplementedError('')
 
             if self.factor:
                 x = self.edge2node(x)  # N,n_hid
@@ -211,7 +206,6 @@ class MLPEncoder(nn.Module):
                 x = self.mlp4(x)  # N*(N-1)/2, n_hid
 
                 x = self.edges2matrix(x, idx, N)  # N,N,n_hid
-
             else:
                 x = self.mlp3(x)
                 x = torch.cat((x, x_skip), dim=1)  # Skip connection

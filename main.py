@@ -1,14 +1,24 @@
+import numpy as np
+import sys
+import os
+import time
+import copy
+import datetime
+import pickle
 import torch.nn as nn
 from torch.utils.data import DataLoader
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 import argparse
 import platform
+import subprocess
 from sklearn.metrics import roc_auc_score, average_precision_score
-from data_loader import *
+from social_data_loader import SocialEvolutionDataset
+from github_data_loader import GithubDataset
+from example_data_loader import ExampleDataset
 from utils import *
 from dyrep import DyRep
-
+from freq import FreqBaseline
 
 def load_checkpoint(file):
     # TODO: Loading the checkpoint stopped working, need to fix.
@@ -54,9 +64,7 @@ def test(model, n_test_batches=10):
     losses =[ [np.Inf, 0], [np.Inf, 0] ]
     n_samples = 0
     # Time slots with 10 days intervals as in the DyRep paper
-    timeslots = [datetime.datetime(2009, 5, 10), datetime.datetime(2009, 5, 20), datetime.datetime(2009, 5, 31),
-                 datetime.datetime(2009, 6, 10), datetime.datetime(2009, 6, 20), datetime.datetime(2009, 6, 30)]
-    timeslots = [t.toordinal() for t in timeslots]
+    timeslots = [t.toordinal() for t in test_loader.dataset.TEST_TIMESLOTS]
     event_types = list(test_loader.dataset.event_types_num.keys()) #['comm', 'assoc']
     # sort it by k
     for event_t in test_loader.dataset.event_types_num:
@@ -93,7 +101,7 @@ def test(model, n_test_batches=10):
             u, v, k = data[0], data[1], data[3]
 
             time_cur = data[5]
-            m, h = MAR(A_pred, u, v, k, Survival_term=Survival_term)
+            m, h = MAR(A_pred, u, v, k, Survival_term=Survival_term, freq_prior=freq.H_train_norm if args.freq else None)
             assert len(time_cur) == len(m) == len(h) == len(k)
             for t, m, h, k_ in zip(time_cur, m, h, k):
                 d = datetime.datetime.fromtimestamp(t.item()).toordinal()
@@ -117,7 +125,7 @@ def test(model, n_test_batches=10):
 
     time_iter = time.time() - start
 
-    print('TEST batch={}/{}, loss={:.3f}, psi={}, loss1 min/max={:.4f}/{:.4f}, '
+    print('\nTEST batch={}/{}, loss={:.3f}, psi={}, loss1 min/max={:.4f}/{:.4f}, '
           'loss2 min/max={:.4f}/{:.4f}, integral time stamps={}, sec/iter={:.4f}'.
           format(batch_idx + 1, len(test_loader), (loss / n_samples),
                  [model.psi[c].item() for c in range(len(model.psi))],
@@ -185,12 +193,12 @@ def set_temporal_variables(variables, model, train_loader, test_loader):
     model.Lambda_dict = variables['Lambda_dict'].clone()
     return time_bar
 
-
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='DyGraphs Training Parameters')
-    parser.add_argument('--data_dir', type=str, default='./SocialEvolution')
-    parser.add_argument('--prob', default=0.8, help='filter events by this probability value')
+    parser.add_argument('--data_dir', type=str, default='./')
+    parser.add_argument('--dataset', type=str, default='social', choices=['social', 'github', 'example'])
+    parser.add_argument('--prob', default=0.8, help='filter events by this probability value in the Social Evolution data')
     parser.add_argument('--batch_size', type=int, default=200, help='batch size (sequence length)')
     parser.add_argument('--n_hid', type=int, default=32, help='hidden layer size')
     parser.add_argument('--epochs', type=int, default=5, help='number of epochs')
@@ -206,10 +214,12 @@ if __name__ == '__main__':
                         help='sparsity prior as in some tasks in Kipf et al., ICML 2018')
     parser.add_argument('--n_rel', type=int, default=2, help='number of edges for learned graphs')
     parser.add_argument('--device', type=str, default='cuda')
-    parser.add_argument('--association', type=str, default='CloseFriend')
+    parser.add_argument('--association', type=str, default='CloseFriend', help='The long term graph of the Social Evolution data used as long term edges')
     parser.add_argument('--resume', type=str, default='')
     parser.add_argument('--log_interval', type=int, default=20, help='print interval')
     parser.add_argument('--results', type=str, default='results', help='results file path')
+    parser.add_argument('--soft_attn', action='store_true', default=False)
+    parser.add_argument('--freq', action='store_true', default=False, help='use the Frequency bias')
 
     args = parser.parse_args()
 
@@ -223,6 +233,9 @@ if __name__ == '__main__':
     experiment_ID = '%s_%06d' % (platform.node(), dt.microsecond)
     print('experiment_ID: ', experiment_ID)
 
+    gitcommit = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
+    print('gitcommit', gitcommit)
+
     # Set seed
     np.random.seed(args.seed)
     rnd = np.random.RandomState(args.seed)
@@ -232,55 +245,67 @@ if __name__ == '__main__':
     torch.cuda.manual_seed(args.seed)
     torch.cuda.manual_seed_all(args.seed)
 
-    FIRST_DATE = datetime.datetime(2008, 9, 11)  # consider events starting from this time
-    EVENT_TYPES = ['SMS', 'Proximity', 'Calls']
-
-    data = load_social_evolution_data(args.data_dir, args.prob, EVENT_TYPES=EVENT_TYPES)
-
+    if args.dataset == 'social':
+        data = SocialEvolutionDataset.load_data(args.data_dir, args.prob)
+        train_set = SocialEvolutionDataset(data['initial_embeddings'], data['train'], args.association)
+        test_set = SocialEvolutionDataset(data['initial_embeddings'], data['test'], args.association,
+                                    data_train=data['train'])
+        initial_embeddings = data['initial_embeddings'].copy()
+        A_initial = train_set.get_Adjacency()[0]
+    elif args.dataset == 'github':
+        train_set = GithubDataset('train', data_dir=args.data_dir)
+        test_set = GithubDataset('test', data_dir=args.data_dir)
+        initial_embeddings = np.random.randn(train_set.N_nodes, args.n_hid)
+        A_initial = train_set.get_Adjacency()[0]
+    elif args.dataset == 'example':
+        train_set = ExampleDataset('train')
+        test_set = ExampleDataset('test')
+        initial_embeddings = np.random.randn(train_set.N_nodes, args.n_hid)
+        A_initial = train_set.get_Adjacency()[0]
+    else:
+        raise NotImplementedError(args.dataset)
 
     def initalize_state(dataset, keepS=False):
         '''Initializes node embeddings and the graph to the original state after every epoch'''
-        Adj_all, Adj_all_last, Adj_friends, _ = dataset.get_Adjacency()
-        assert data['train'].N_subjects == Adj_friends.shape[0], (data['train'].N_subjects, Adj_friends.shape)
+
+        Adj_all = dataset.get_Adjacency()[0]
+
+        if not isinstance(Adj_all, list):
+            Adj_all = [Adj_all]
+
         node_degree_global = []
         for rel, A in enumerate(Adj_all):
             node_degree_global.append(np.zeros(A.shape[0]))
             for u in range(A.shape[0]):
                 node_degree_global[rel][u] = np.sum(A[u])
 
-        time_bar = np.zeros((data['train'].N_subjects, 1)) + FIRST_DATE.timestamp()
+        Adj_all = Adj_all[0]
+        print('Adj_all', Adj_all.shape, len(node_degree_global), node_degree_global[0].min(), node_degree_global[0].max())
+        time_bar = np.zeros((dataset.N_nodes, 1)) + dataset.FIRST_DATE.timestamp()
 
-        model.initialize(node_embeddings=data['initial_embeddings'].copy(),
+        model.initialize(node_embeddings=initial_embeddings,
                          A_initial=Adj_all, keepS=keepS)  # train_loader.dataset.H_train
+
+
         model.to(args.device)
         return time_bar, node_degree_global
 
+    train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=False)
+    test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False)
 
-    train_loader = DataLoader(SocialEvolutionTorch(data['initial_embeddings'],
-                                                   data['train'],
-                                                   EVENT_TYPES,
-                                                   FIRST_DATE,
-                                                   args.association),
-                              batch_size=args.batch_size, shuffle=False)
+    freq = FreqBaseline(train_set, test_set)
 
-    test_loader = DataLoader(SocialEvolutionTorch(data['initial_embeddings'],
-                                                  data['test'],
-                                                  EVENT_TYPES,
-                                                  FIRST_DATE,
-                                                  args.association,
-                                                  data_train=data['train']),
-                             batch_size=args.batch_size, shuffle=False)
-
-
-    model = DyRep(node_embeddings=data['initial_embeddings'].copy(),
-                  A_initial=train_loader.dataset.get_Adjacency()[0],
-                  EVENT_TYPES=EVENT_TYPES,
+    model = DyRep(node_embeddings=initial_embeddings,
+                  N_nodes=train_set.N_nodes,
+                  A_initial=A_initial,
                   n_hidden=args.n_hid,
                   bilinear=args.bilinear,
                   sparse=args.sparse,
                   encoder=args.encoder,
                   n_rel=args.n_rel,
                   rnd=rnd,
+                  soft_attn=args.soft_attn,
+                  freq=freq.H_train_norm if args.freq else None,
                   node_degree_global=None).to(args.device)
 
     print(model)
@@ -366,7 +391,7 @@ if __name__ == '__main__':
             if (batch_idx + 1) % args.log_interval == 0 or batch_idx == len(train_loader) - 1:
                 # Report (intermediate) results
 
-                print('TRAIN epoch={}/{}, batch={}/{}, sec/iter: {:.4f}, loss={:.3f}, loss components: {}'.format(epoch,
+                print('\nTRAIN epoch={}/{}, batch={}/{}, sec/iter: {:.4f}, loss={:.3f}, loss components: {}'.format(epoch,
                                                                                             args.epochs,
                                                                                             batch_idx + 1,
                                                                                             len(train_loader),
@@ -375,11 +400,14 @@ if __name__ == '__main__':
 
                 if args.encoder is not None:
                     S = model.S.data.cpu().numpy()
-
                     S_batch = output[3].sum(axis=0)
-                    A_all_first, A_all_last, _, keys = train_loader.dataset.get_Adjacency(multirelations=True)
+                    A_all_first, keys, A_all_last = train_loader.dataset.get_Adjacency(multirelations=True)
+
                     for survey, A_all in zip(['first', 'last'], [A_all_first, A_all_last]):
                         for rel, key in enumerate(keys):
+                            if len(A_all.shape) == 2:
+                                A_all = A_all[:, :, None]
+
                             A = A_all[:, :, rel].flatten()
                             for edge_type in range(S.shape[2]):
                                 prec = average_precision_score(y_true=A, y_score=S[:, :, edge_type].flatten())
@@ -398,8 +426,8 @@ if __name__ == '__main__':
                                              acc_batch, auc_batch, prec_batch, c_batch))
 
                     for edge_type in range(S.shape[2]):
-                        c = np.corrcoef(train_loader.dataset.H_train.flatten(), S[:, :, edge_type].flatten())[0, 1]
-                        c_batch = np.corrcoef(train_loader.dataset.H_train.flatten(), S_batch[:, :, edge_type].flatten())[0, 1]
+                        c = np.corrcoef(freq.H_train.flatten(), S[:, :, edge_type].flatten())[0, 1]
+                        c_batch = np.corrcoef(freq.H_train.flatten(), S_batch[:, :, edge_type].flatten())[0, 1]
                         print('Edge {} with H_train: corr={:.4f}, corr_batch={:.4f}'.format(edge_type, c, c_batch))
 
 

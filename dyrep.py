@@ -9,8 +9,9 @@ from utils import *
 class DyRep(nn.Module):
     def __init__(self,
                  node_embeddings,
-                 A_initial,
-                 EVENT_TYPES,
+                 # n_event_types,
+                 N_nodes,
+                 A_initial=None,
                  N_surv_samples=5,
                  n_hidden=32,
                  bilinear=False,
@@ -20,6 +21,8 @@ class DyRep(nn.Module):
                  node_degree_global=None,
                  rnd=None,
                  sym=False,
+                 soft_attn=False,
+                 freq=False,
                  device='cuda'):
         super(DyRep, self).__init__()
 
@@ -34,11 +37,16 @@ class DyRep(nn.Module):
         self.N_surv_samples = N_surv_samples
         self.latent_graph = encoder is not None
         self.generate = self.latent_graph
+        self.soft_attn = soft_attn
+        self.freq = freq
+
+        print('using {} attention'.format('soft' if self.soft_attn else 'hard').upper())
+
 
         self.node_degree_global = node_degree_global
 
         self.N_nodes = A_initial.shape[0]
-        if len(A_initial.shape) == 2:
+        if A_initial is not None and len(A_initial.shape) == 2:
             A_initial = A_initial[:, :, None]
 
         if self.latent_graph:
@@ -46,7 +54,7 @@ class DyRep(nn.Module):
         else:
             self.n_assoc_types = 1
 
-        self.n_relations = self.n_assoc_types + len(EVENT_TYPES)  # 3 communication event types + association event
+        # self.n_relations = self.n_assoc_types + len(EVENT_TYPES)  # 3 communication event types + association event
 
         self.initialize(node_embeddings, A_initial)
 
@@ -100,9 +108,9 @@ class DyRep(nn.Module):
     def init_weights(self):
         for m in self.modules():
             if isinstance(m, nn.Linear) or isinstance(m, nn.Bilinear):
-                print('before Xavier', m.weight.data.shape, m.weight.data.min(), m.weight.data.max())
+                # print('before Xavier', m.weight.data.shape, m.weight.data.min(), m.weight.data.max())
                 nn.init.xavier_normal_(m.weight.data)
-                print('after Xavier', m.weight.data.shape, m.weight.data.min(), m.weight.data.max())
+                # print('after Xavier', m.weight.data.shape, m.weight.data.min(), m.weight.data.max())
 
     def generate_S_from_A(self):
         S = self.A.new(self.N_nodes, self.N_nodes, self.n_assoc_types).fill_(0)
@@ -125,7 +133,8 @@ class DyRep(nn.Module):
             z = np.pad(node_embeddings, ((0, 0), (0, self.n_hidden - node_embeddings.shape[1])), 'constant')
             z = torch.from_numpy(z).float().to(self.device)
 
-        if self.latent_graph:
+        if A_initial is None or self.latent_graph:
+
             print('initial random prediction of A')
             A = torch.zeros(self.N_nodes, self.N_nodes, self.n_assoc_types + int(self.sparse), device=self.device)
 
@@ -152,6 +161,7 @@ class DyRep(nn.Module):
                 A = A[:, :, 1:]
 
         else:
+            print('A_initial', A_initial.shape)
             A = torch.from_numpy(A_initial).float().to(self.device)
             if len(A.shape) == 2:
                 A = A.unsqueeze(2)
@@ -373,18 +383,25 @@ class DyRep(nn.Module):
     def generate_S(self, prev_embed, u, v, train_enc=False):
         N = self.N_nodes
 
+        edges = torch.Tensor([[u, v]]).long()
+
         if not train_enc:
             # do not keep any gradients
             with torch.no_grad():
-                logits, idx = self.encoder(prev_embed, u, v)
+                logits, idx = self.encoder(prev_embed, edges=edges)
             logits = logits.detach()  # not backpropgenerate_S
         else:
-            logits, idx = self.encoder(prev_embed, u, v)
+            logits, idx = self.encoder(prev_embed, edges=edges)
 
         N = 2
         logits = logits.view(1, N * N, self.n_assoc_types + int(self.sparse))  # N,N,N_assoc  # nn.functional.sigmoid
 
-        edges = gumbel_softmax(logits, tau=0.5, hard=not self.training or not train_enc)  # hard during test time
+        if self.training or train_enc or self.soft_attn:
+            hard = False
+        else:
+            hard = True  # hard at test time
+
+        edges = gumbel_softmax(logits, tau=0.5, hard=hard)
 
         if train_enc:
             prob = my_softmax(logits, -1)
@@ -500,9 +517,12 @@ class DyRep(nn.Module):
                 self.update_S_A(u_it, v_it, k.item(), node_degree, lambda_uv_t[it])  #
 
             # update most recent degrees of nodes used to update S
-            for j in [u_it, v_it]:
-                for rel in range(self.n_assoc_types):
-                    self.node_degree_global[rel][j] = node_degree[j][rel]
+
+            if not self.latent_graph:
+                assert self.node_degree_global is not None
+                for j in [u_it, v_it]:
+                    for rel in range(self.n_assoc_types):
+                        self.node_degree_global[rel][j] = node_degree[j][rel]
 
             # Non events loss
             # this is not important for test time, but we still compute these losses for debugging purposes
@@ -567,19 +587,20 @@ class DyRep(nn.Module):
             # Once we made predictions for the training and test sample, we can update node embeddings
             z_all.append(z_new)
             # update S
-            if self.generate or (not self.training and self.latent_graph and self.encoder is not None):
-                S_tmp, logits_tmp, reg2 = self.generate_S(z_new, u_it, v_it, train_enc=self.training and self.train_enc)
-                if self.training:
-                    reg = reg + reg2
+            if self.generate:
+                if self.encoder is not None:
+                    S_tmp, logits_tmp, reg2 = self.generate_S(z_new, u_it, v_it, train_enc=self.training and self.train_enc)
+                    if self.training:
+                        reg = reg + reg2
 
-                self.S = self.S.clone()
+                    self.S = self.S.clone()
 
-                self.S[u_it, v_it] = S_tmp[0, 1]
-                self.S[v_it, u_it] = S_tmp[1, 0]
+                    self.S[u_it, v_it] = S_tmp[0, 1]
+                    self.S[v_it, u_it] = S_tmp[1, 0]
 
-                self.S = self.S / (torch.sum(self.S, dim=1, keepdim=True) + 1e-7)
-                self.logits[u_it, v_it] = logits_tmp[0, 1]
-                self.logits[v_it, u_it] = logits_tmp[1, 0]
+                    self.S = self.S / (torch.sum(self.S, dim=1, keepdim=True) + 1e-7)
+                    self.logits[u_it, v_it] = logits_tmp[0, 1]
+                    self.logits[v_it, u_it] = logits_tmp[1, 0]
                 self.A = self.S
                 S_batch.append(self.S.data.cpu().numpy())
 

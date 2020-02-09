@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 
 
-def MAR(A_pred, u, v, k, Survival_term):
+def MAR(A_pred, u, v, k, Survival_term, freq_prior=None):
     '''Computes mean average ranking for a batch of events'''
     ranks = []
     hits_10 = []
@@ -14,6 +14,11 @@ def MAR(A_pred, u, v, k, Survival_term):
     assert torch.sum(torch.isnan(A_pred)) == 0, (torch.sum(torch.isnan(A_pred)), Survival_term.min(), Survival_term.max())
 
     A_pred = A_pred.data.cpu().numpy()
+
+    if freq_prior is not None:
+        print('USING FREQUENCY PRIOR')
+        print(A_pred.shape, A_pred.min(), A_pred.max(), freq_prior.min(), freq_prior.max())
+        A_pred = A_pred + freq_prior
 
     assert N == len(u) == len(v) == len(k), (N, len(u), len(v), len(k))
     for b in range(N):
