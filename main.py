@@ -256,7 +256,11 @@ if __name__ == '__main__':
     torch.cuda.manual_seed_all(args.seed)
 
     if args.dataset == 'social':
-        data = SocialEvolutionDataset.load_data(args.data_dir, args.prob)
+        try:
+            data = SocialEvolutionDataset.load_data(args.data_dir, args.prob)
+        except FileNotFoundError as e:
+            raise ValueError('Original nor preprocessed data not found. Please consult README.md to prepare data before running the code. Error:', e)
+
         train_set = SocialEvolutionDataset(data['initial_embeddings'], data['train'], args.association, verbose=args.verbose)
         test_set = SocialEvolutionDataset(data['initial_embeddings'], data['test'], args.association,
                                     data_train=data['train'], verbose=args.verbose)
