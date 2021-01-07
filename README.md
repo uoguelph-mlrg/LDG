@@ -4,12 +4,31 @@ PyTorch code for our paper on [Learning Temporal Attention in Dynamic Graphs wit
 
 ## Data
 
-All necessary data are uploaded to this repo. 
+### Social Evolution
 
-**Social Evolution.** The original data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
-Before running the code, unpack `Proximity.csv.bz2`, e.g. by running `bzip2 -d Proximity.csv.bz2` inside the SocialEvolution folder.
+When using this dataset, you must comply with their **conditions** specified [here](http://realitycommons.media.mit.edu/socialevolution1.html).
 
-**Github.** The original data can be accessed [here](https://www.gharchive.org/). In this repo we extract a subnetwork of 284 users with relatively dense events between each other. Each user initiated at least 200 communication and 7 association events during the year of 2013. "Follow" events in 2011-2012 are considered as initial associations. Communication events include: Watch, Star, Fork, Push, Issues, IssueComment, PullRequest, Commit. This results in a dataset of 284 nodes and around 10k training events (from December to August 2013) and 8k test events (from September to December 2013) .
+**Option 1:**
+
+The original data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
+Once you download their zip file, unpack it to the `SocialEvolution` folder, then inside that folder unpack `Proximity.csv.bz2`, e.g. by running `bzip2 -d Proximity.csv.bz2`.
+You can then run our code and it will generate a preprocessed `data_prob0.8.pkl` file that will be reused every time you run our code.
+
+**Option 2:**
+
+Instead of using original data, you can directly download `data_prob0.8.pkl` from [here](https://drive.google.com/file/d/1VTcJaAX1FcnAEVKId40er5JnV7ZKpybz/view?usp=sharing) and put it to the `SocialEvolution` folder.
+
+### Github
+
+The original data can be accessed [here](https://www.gharchive.org/). 
+When using this dataset, you must comply with their **licenses** specified [here](https://github.com/igrigorik/gharchive.org#licenses).
+
+In this repo we extract a subnetwork of 284 users with relatively dense events between each other. 
+Each user initiated at least 200 communication and 7 association events during the year of 2013. 
+"Follow" events in 2011-2012 are considered as initial associations. Communication events include: Watch, Star, Fork, Push, Issues, IssueComment, PullRequest, Commit. This results in a dataset of 284 nodes and around 10k training events (from December to August 2013) and 8k test events (from September to December 2013) .
+
+We provide the preprocessed pkl files in the `Github` folder so that you do not need to access the original data to run our code.
+
 
 ## Examples
 
