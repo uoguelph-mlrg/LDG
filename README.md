@@ -6,11 +6,11 @@ PyTorch code for our paper on [Learning Temporal Attention in Dynamic Graphs wit
 
 ### Social Evolution
 
-When using this dataset, you must comply with their **conditions** specified [here](http://realitycommons.media.mit.edu/socialevolution1.html).
+When using this dataset, you must comply with their **conditions** specified [here](http://realitycommons.media.mit.edu/socialevolution4.html).
 
 **Option 1:**
 
-The original data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution1.html).
+The original data can be accessed [here](http://realitycommons.media.mit.edu/socialevolution4.html).
 Once you download their zip file, unpack it to the `SocialEvolution` folder, then inside that folder unpack `Proximity.csv.bz2`, e.g. by running `bzip2 -d Proximity.csv.bz2`.
 You can then run our code and it will generate a preprocessed `data_prob0.8.pkl` file that will be reused every time you run our code.
 
