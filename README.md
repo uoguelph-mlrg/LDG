@@ -2,6 +2,13 @@
 
 PyTorch code for our paper on [Learning Temporal Attention in Dynamic Graphs with Bilinear Interactions](https://arxiv.org/abs/1909.10367).
 
+
+**Updates**
+- added the `--bilinear_enc` flag in addition to `--bilinear` to contol where to use the bilinear layer
+- added the `--model` flag to run baseline Graph Convolutional/Attention Networks (GCN/GAT) models
+- improved logging and added the `--verbose` to control how much info to print out
+
+
 ## Data
 
 ### Social Evolution
@@ -41,7 +48,7 @@ Running the baseline DyRep model [1] on Social Evolution:
 
 Running our latent dynamic graph (LDG) model with a learned graph, sparse prior and biliear interactions:
 
-`python main.py --log_interval 300  --data_dir ./SocialEvolution/ --encoder mlp --soft_attn --bilinear --sparse`
+`python main.py --log_interval 300  --data_dir ./SocialEvolution/ --encoder mlp --soft_attn --bilinear --bilinear_enc --sparse`
 
 Note that on Social Evolution our default option is to filter `Proximity` events by their probability: `--prob 0.8`. In the DyRep paper, they use all events, i.e. `--prob 0.8`. When we compare results in our paper, we use the same `--prob 0.8` for all methods.
 

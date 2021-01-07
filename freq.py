@@ -4,16 +4,17 @@ import numpy as np
 
 class FreqBaseline():
 
-    def __init__(self, train, test):
+    def __init__(self, train, test, verbose=False):
         N = train.N_nodes
-
+        self.verbose = verbose
         H_train = np.zeros((N, N))
         n = 0
         for e in train.all_events:
             H_train[e[0], e[1]] += 1
             H_train[e[1], e[0]] += 1
             n += 1
-        print('train', n, H_train.max(), H_train.min(), H_train.std())
+        if self.verbose:
+            print('train', n, H_train.max(), H_train.min(), H_train.std())
         self.H_train = H_train
 
         self.H_train_norm = self.H_train / (np.sum(self.H_train, axis=1, keepdims=True) + 1e-10)
@@ -23,13 +24,16 @@ class FreqBaseline():
         for e in test.all_events:
             H_test[e[0], e[1]] += 1
             c += 1
-        print('test', c, H_test.max(), H_test.min(), H_test.std())
+        if self.verbose:
+            print('test', c, H_test.max(), H_test.min(), H_test.std())
         self.H_test = H_test
 
-        print('\nFrequency baselines'.upper())
+        if self.verbose:
+            print('\nFrequency baselines'.upper())
 
         R = np.corrcoef(H_train.flatten(), H_test.flatten())[0, 1]
-        print('correlation coefficient between train and test events: %f' % R)
+        if self.verbose:
+            print('correlation coefficient between train and test events: %f' % R)
 
         # Frequency based baseline
         ranks = []
@@ -44,7 +48,8 @@ class FreqBaseline():
             rank, hits = self.get_mar_hits_sym(idx1, idx2, v_it, u_it)
             ranks.append(rank)
             hits_10.append(hits)
-        print('\nFrequency MAR and HITS@10:', np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10))
+        if self.verbose:
+            print('\n{:25s}: MAR={:.2f}+-{:.2f} \t HITS@10={:.3f}+-{:.3f}'.format('Frequency', np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10)))
 
         self.results = {}
 
@@ -86,7 +91,8 @@ class FreqBaseline():
                 rank, hits = self.get_mar_hits_sym(idx1, idx2, v_it, u_it)
                 ranks.append(rank)
                 hits_10.append(hits)
-            print('%s: Frequency MAR and HITS@10:' % rel, np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10))
+            if self.verbose:
+                print('{:25s}: Frequency MAR={:.2f}+-{:.2f} \t HITS@10={:.3f}+-{:.3f}'.format(rel, np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10)))
 
             self.results[rel] = (np.mean(ranks), np.mean(hits_10))
 
@@ -107,9 +113,12 @@ class FreqBaseline():
             rank, hits = self.get_mar_hits_sym(idx1, idx2, v_it, u_it)
             ranks.append(rank)
             hits_10.append(hits)
-
-        print('Random: Frequency MAR and HITS@10:', np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10))
+        if self.verbose:
+            print('{:25s}: Frequency MAR={:.2f}+-{:.2f} \t HITS@10={:.3f}+-{:.3f}'.format('Random', np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10)))
         self.results['random'] = (np.mean(ranks), np.mean(hits_10))
+
+        if self.verbose:
+            print('')
 
         for rel_ind, rel in enumerate(keys):
             A = A_all[:, :, rel_ind]
@@ -145,10 +154,12 @@ class FreqBaseline():
                 rank, hits = self.get_mar_hits_sym(idx1, idx2, v_it, u_it)
                 ranks.append(rank)
                 hits_10.append(hits)
-            print('%s: Frequency overlap MAR and HITS@10:' % rel, np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10))
+            if self.verbose:
+                print('{:25s}: Frequency overlap MAR={:.2f}+-{:.2f} \t HITS@10={:.3f}+-{:.3f}'.format(rel, np.mean(ranks), np.std(ranks), np.mean(hits_10), np.std(hits_10)))
             self.results['%s_overlap' % rel] = (np.mean(ranks), np.mean(hits_10))
 
-        print('\n')
+        if self.verbose:
+            print('')
 
     def get_mar_hits_sym(self, idx1, idx2, v, u, k=10):
         rank1, hits1 = self.get_mar_hits(idx1, v, k=k)  # get nodes most likely connected to u[b] and find out the rank of v[b] among those nodes

@@ -15,14 +15,17 @@ class DyRep(nn.Module):
                  N_surv_samples=5,
                  n_hidden=32,
                  bilinear=False,
+                 bilinear_enc=False,
                  sparse=False,
                  n_rel=1,
                  encoder=None,
                  node_degree_global=None,
                  rnd=None,
                  sym=False,
+                 model='gcn',
                  soft_attn=False,
                  freq=False,
+                 verbose=False,
                  device='cuda'):
         super(DyRep, self).__init__()
 
@@ -30,18 +33,21 @@ class DyRep(nn.Module):
         self.exp = True
         self.rnd = rnd
         self.bilinear = bilinear
+        self.bilinear_enc = bilinear_enc
         self.n_hidden = n_hidden
         self.sparse = sparse
         self.encoder = encoder
         self.device = device
+        self.model = model
         self.N_surv_samples = N_surv_samples
         self.latent_graph = encoder is not None
         self.generate = self.latent_graph
         self.soft_attn = soft_attn
         self.freq = freq
+        self.verbose = verbose
 
-        print('using {} attention'.format('soft' if self.soft_attn else 'hard').upper())
-
+        if self.verbose:
+            print('using {} attention'.format('soft' if self.soft_attn else 'hard').upper())
 
         self.node_degree_global = node_degree_global
 
@@ -59,11 +65,25 @@ class DyRep(nn.Module):
         self.initialize(node_embeddings, A_initial)
 
         n_in = 0
-        self.W_h = nn.Linear(in_features=n_hidden + n_in, out_features=n_hidden)
 
-        self.W_struct = nn.Linear(n_hidden * self.n_assoc_types, n_hidden)
-        self.W_rec = nn.Linear(n_hidden + n_in, n_hidden)
-        self.W_t = nn.Linear(4, n_hidden)  # 4 because we want separate parameters for days, hours, minutes, seconds; otherwise (if we just use seconds) it can be a huge number confusing the network
+        if self.model != 'dyrep':
+            self.W_h = nn.ModuleList([nn.Linear(in_features=n_hidden, out_features=n_hidden) for _ in range(3)])  # to have a similar number of trainable params as in DyRep
+            if self.model == 'gat':
+                self.K_heads = 4
+                self.layers = 3
+                # self.W_alpha = nn.Linear(in_features=n_hidden, out_features=n_hidden)
+                self.alpha = nn.ModuleList([nn.ModuleList([
+                    nn.Linear(in_features=(n_hidden // self.K_heads) * 2, out_features=1) for head in range(self.K_heads)])
+                    for layer in range(self.layers)])
+                self.W_h = nn.ModuleList([nn.ModuleList([
+                    nn.Linear(in_features=n_hidden, out_features=n_hidden // self.K_heads) for head in range(self.K_heads)])
+                    for layer in range(self.layers)])  # to have a similar number of trainable params as in DyRep
+        else:
+            self.W_h = nn.Linear(in_features=n_hidden + n_in, out_features=n_hidden)
+
+            self.W_struct = nn.Linear(n_hidden * self.n_assoc_types, n_hidden)
+            self.W_rec = nn.Linear(n_hidden + n_in, n_hidden)
+            self.W_t = nn.Linear(4, n_hidden)  # 4 because we want separate parameters for days, hours, minutes, seconds; otherwise (if we just use seconds) it can be a huge number confusing the network
 
         # Initialize parameters of the intensity rate (edge) prediction functions
         # See https://github.com/pytorch/pytorch/blob/master/torch/nn/modules/linear.py
@@ -80,18 +100,18 @@ class DyRep(nn.Module):
 
         self.psi = nn.Parameter(0.5 * torch.ones(n_types))
 
-        print('omega', self.omega)
+        # print('omega', self.omega)
 
         self.train_enc = False
         if encoder is not None:
             if encoder.lower() == 'mlp':
                 self.encoder = MLPEncoder(n_in=self.n_hidden, n_hid=self.n_hidden,
-                                          n_out=self.n_assoc_types + int(sparse), bilinear=bilinear, n_stages=2,
+                                          n_out=self.n_assoc_types + int(sparse), bilinear=bilinear_enc, n_stages=2,
                                           sym=sym, bnorm=True)
                 self.train_enc = True
             elif encoder.lower() == 'mlp1':
                 self.encoder = MLPEncoder(n_in=self.n_hidden, n_hid=self.n_hidden,
-                                          n_out=self.n_assoc_types + int(sparse), bilinear=bilinear, n_stages=1,
+                                          n_out=self.n_assoc_types + int(sparse), bilinear=bilinear_enc, n_stages=1,
                                           sym=sym, bnorm=True)
                 self.train_enc = True
             elif encoder.lower() == 'linear':
@@ -113,21 +133,31 @@ class DyRep(nn.Module):
                 # print('after Xavier', m.weight.data.shape, m.weight.data.min(), m.weight.data.max())
 
     def generate_S_from_A(self):
-        S = self.A.new(self.N_nodes, self.N_nodes, self.n_assoc_types).fill_(0)
-        for rel in range(self.n_assoc_types):
-            D = torch.sum(self.A[:, :, rel], dim=1).float()
-            for v in torch.nonzero(D):
-                u = torch.nonzero(self.A[v, :, rel].squeeze())
-                S[v, u, rel] = 1. / D[v]
-        self.S = S
-        # Check that values in each row of S add up to 1
-        for rel in range(self.n_assoc_types):
-            S = self.S[:, :, rel]
-            assert torch.sum(S[self.A[:, :, rel] == 0]) < 1e-5, torch.sum(S[self.A[:, :, rel] == 0])  # check that S_uv is zero when A_uv is zero
+        if self.model == 'dyrep':
+            S = self.A.new(self.N_nodes, self.N_nodes, self.n_assoc_types).fill_(0)
+            for rel in range(self.n_assoc_types):
+                D = torch.sum(self.A[:, :, rel], dim=1).float()
+                for v in torch.nonzero(D):
+                    u = torch.nonzero(self.A[v, :, rel].squeeze())
+                    S[v, u, rel] = 1. / D[v]
+            self.S = S
+            # Check that values in each row of S add up to 1
+            for rel in range(self.n_assoc_types):
+                S = self.S[:, :, rel]
+                assert torch.sum(S[self.A[:, :, rel] == 0]) < 1e-5, torch.sum(S[self.A[:, :, rel] == 0])  # check that S_uv is zero when A_uv is zero
+        elif self.model == 'gcn':
+            A_hat = self.A.view(self.N_nodes, self.N_nodes) #.view(self.N_nodes, self.N_nodes) + torch.eye(self.N_nodes).to(self.device)
+            assert torch.all(A_hat[np.diag_indices(self.N_nodes)] == 1), A_hat[np.diag_indices(self.N_nodes)]
+            D_hat = (torch.sum(A_hat, 0) + 1e-5) ** (-0.5)
+            self.S = D_hat.view(self.N_nodes, 1) * A_hat * D_hat.view(1, self.N_nodes)
+        else:
+            # S is computed for each batch on the fly
+            assert self.model == 'gat', self.model
 
 
     def initialize(self, node_embeddings, A_initial, keepS=False):
-        print('initialize model''s node embeddings and adjacency matrices for %d nodes' % self.N_nodes)
+        if self.verbose:
+            print('initialize model''s node embeddings and adjacency matrices for %d nodes' % self.N_nodes)
         # Initial embeddings
         if node_embeddings is not None:
             z = np.pad(node_embeddings, ((0, 0), (0, self.n_hidden - node_embeddings.shape[1])), 'constant')
@@ -135,7 +165,8 @@ class DyRep(nn.Module):
 
         if A_initial is None or self.latent_graph:
 
-            print('initial random prediction of A')
+            if self.verbose:
+                print('initial random prediction of A')
             A = torch.zeros(self.N_nodes, self.N_nodes, self.n_assoc_types + int(self.sparse), device=self.device)
 
             for i in range(self.N_nodes):
@@ -161,14 +192,24 @@ class DyRep(nn.Module):
                 A = A[:, :, 1:]
 
         else:
-            print('A_initial', A_initial.shape)
+            if self.verbose:
+                print('A_initial', A_initial.shape)
             A = torch.from_numpy(A_initial).float().to(self.device)
             if len(A.shape) == 2:
                 A = A.unsqueeze(2)
 
         # make these variables part of the model
+        # if self.model == 'dyrep':
         self.register_buffer('z', z)
+        # else:
+        #     self.z = nn.Embedding(z.shape[0], z.shape[1]).to(self.device)
+        #     self.z.weight.data = z.data
+
         self.register_buffer('A', A)
+
+        if self.model != 'dyrep':
+            self.A = self.A.view(self.N_nodes, self.N_nodes)
+            self.A[np.diag_indices(self.N_nodes)] = 1  # add self-loops
 
         if not keepS:
             self.generate_S_from_A()
@@ -473,7 +514,8 @@ class DyRep(nn.Module):
         S_batch = []
         if self.latent_graph:
             if self.encoder is not None and self.t_p == 0:
-                print('!!!generate S!!!')
+                if self.verbose:
+                    print('!!!generate S!!!')
                 self.S = self.S / (torch.sum(self.S, dim=1, keepdim=True) + 1e-7)
                 self.logits = self.S
                 self.A = self.S
@@ -486,6 +528,57 @@ class DyRep(nn.Module):
         v_all = v.data.cpu().numpy()
 
         update_attn = not self.latent_graph  # always update if not latent
+
+
+        if self.model == 'gcn':
+            for layer in range(len(self.W_h)):
+                self.z = torch.mm(self.S, self.W_h[layer](self.z))  # update node embeddings. We want these updates to be predictive of the future
+                if layer < len(self.W_h) - 1:
+                    self.z = F.relu(self.z)
+            # self.z = self.W_h(self.z)
+            # print(self.z.min().item(), self.z.max().item())
+            if self.bilinear:
+                self.z = 0.5 * torch.tanh(self.z)  # to prevent overflow and nans
+                # self.z.data.clamp_(-1, 1)
+
+        elif self.model == 'gat':
+
+            assert torch.all(self.A[np.diag_indices(self.N_nodes)] == 1), self.A[np.diag_indices(self.N_nodes)]
+
+            rows, cols = torch.nonzero(self.A).split([1, 1], dim=1)
+
+            for layer in range(len(self.W_h)):
+                z_cat = []
+                for head in range(self.K_heads):
+                    z_prime = self.W_h[layer][head](self.z)
+                    # print(layer, z_prime.shape)
+                    h = torch.cat((z_prime[rows].view(len(rows), -1), z_prime[cols].view(len(cols), -1)), dim=1)
+
+                    self.S = torch.zeros(self.N_nodes, self.N_nodes).to(self.device)
+                    self.S[rows, cols] = F.leaky_relu(self.alpha[layer][head](h).view(-1, 1), negative_slope=0.2)
+
+                    for r in range(self.N_nodes):
+                        neighbors = torch.nonzero(self.A[r]).view(-1)
+                        self.S[r, neighbors] = F.softmax(self.S[r, neighbors] + 1)  # +1 for numerical stability
+                        # print(r, self.S[r, c].sum(), self.S[r, c])
+
+                    # Alternative to softmax
+                    # A_hat = self.A.view(self.N_nodes, self.N_nodes) + torch.eye(self.N_nodes).to(self.device)
+                    # D_hat = (torch.sum(A_hat, 0) + 1e-5) ** (-0.5)
+                    # self.S = D_hat.view(self.N_nodes, 1) * A_hat * D_hat.view(1, self.N_nodes)
+
+                    z_head = torch.mm(self.S, z_prime)
+                    if layer < len(self.W_h) - 1:
+                        z_head = F.relu(z_head)
+                    z_cat.append(z_head)
+                self.z = torch.cat(z_cat, dim=1)
+            # if self.bilinear:
+            # self.z.data.clamp_(-2, 2)
+            self.z = 0.5 * torch.tanh(self.z)  # to prevent overflow and nans
+            # self.z = torch.sigmoid(self.z)
+
+        elif self.model != 'dyrep':
+            raise NotImplementedError(self.model)
 
         for it, k in enumerate(event_types):
             # k = 0: association event (rare)
@@ -505,24 +598,30 @@ class DyRep(nn.Module):
 
 
             # 2. Update node embeddings
-            node_degree, z_new = self.update_node_embed(z_prev, u_it, v_it, time_delta_uv[it], k)  # / 3600.)  # hours
-            if self.opt:
-                node_degrees.append(node_degree)
+            if self.model == 'dyrep':
+                node_degree, z_new = self.update_node_embed(z_prev, u_it, v_it, time_delta_uv[it], k)  # / 3600.)  # hours
+                if self.opt:
+                    node_degrees.append(node_degree)
 
 
-            # 3. Update S and A
-            if not self.opt and update_attn:
-                # we can update S and A based on current pair of nodes even during test time,
-                # because S, A are not used in further steps for this iteration
-                self.update_S_A(u_it, v_it, k.item(), node_degree, lambda_uv_t[it])  #
+                # 3. Update S and A
+                if not self.opt and update_attn:
+                    # we can update S and A based on current pair of nodes even during test time,
+                    # because S, A are not used in further steps for this iteration
+                    self.update_S_A(u_it, v_it, k.item(), node_degree, lambda_uv_t[it])  #
 
-            # update most recent degrees of nodes used to update S
+                # update most recent degrees of nodes used to update S
+                if not self.latent_graph:
+                    assert self.node_degree_global is not None
+                    for j in [u_it, v_it]:
+                        for rel in range(self.n_assoc_types):
+                            self.node_degree_global[rel][j] = node_degree[j][rel]
+            else:
+                if k <= 0:  # Association event
+                    self.A[u, v] = self.A[v, u] = 1
+                    self.generate_S_from_A()
 
-            if not self.latent_graph:
-                assert self.node_degree_global is not None
-                for j in [u_it, v_it]:
-                    for rel in range(self.n_assoc_types):
-                        self.node_degree_global[rel][j] = node_degree[j][rel]
+                z_new = self.z
 
             # Non events loss
             # this is not important for test time, but we still compute these losses for debugging purposes
@@ -607,7 +706,6 @@ class DyRep(nn.Module):
 
             self.t_p += 1
 
-
         self.z = z_new  # update node embeddings
 
         # Batch update
@@ -629,7 +727,7 @@ class DyRep(nn.Module):
                     idx += non_events
                 lambda_uv_t_non_events[idx] = self.intensity_rate_lambda(embeddings_non1, embeddings_non2, empty_t + k)
 
-            if update_attn:
+            if update_attn and self.model == 'dyrep':
                 # update only once per batch
                 for it, k in enumerate(event_types):
                     u_it, v_it = u_all[it], v_all[it]

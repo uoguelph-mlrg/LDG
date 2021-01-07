@@ -23,11 +23,13 @@ class SocialEvolutionDataset(EventsDataset):
                  subj_features,
                  data,
                  MainAssociation,
-                 data_train=None):
+                 data_train=None,
+                 verbose=False):
         super(SocialEvolutionDataset, self).__init__()
 
         self.subj_features = subj_features
         self.data = data
+        self.verbose = verbose
         self.all_events = []
         self.event_types_num = {}
         self.time_bar = None
@@ -38,8 +40,9 @@ class SocialEvolutionDataset(EventsDataset):
         self.event_types = SocialEvolutionDataset.EVENT_TYPES
 
         k = 1  # k >= 1 for communication events
+        print(data.split.upper())
         for t in self.event_types:
-            print(t, k, len(data.EVENT_TYPES[t].tuples))
+            print('Event type={}, k={}, number of events={}'.format(t, k, len(data.EVENT_TYPES[t].tuples)))
 
             events = list(filter(lambda x: x[3].toordinal() >= self.FIRST_DATE.toordinal(),
                                  data.EVENT_TYPES[t].tuples))
@@ -53,8 +56,9 @@ class SocialEvolutionDataset(EventsDataset):
         if data.split == 'train':
             Adj_all, keys, Adj_all_last = self.get_Adjacency()
 
-            print('initial and final associations', self.MainAssociation, Adj_all.sum(), Adj_all_last.sum(),
-                  np.allclose(Adj_all, Adj_all_last))
+            if self.verbose:
+                print('initial and final associations', self.MainAssociation, Adj_all.sum(), Adj_all_last.sum(),
+                      np.allclose(Adj_all, Adj_all_last))
 
 
         # Initial topology
@@ -93,17 +97,18 @@ class SocialEvolutionDataset(EventsDataset):
 
                     Adj_prev = data.Adj[date][rel]
 
-                k -= 1
-
-                print(data.split, rel, len(self.all_events) - n)
+                # print(data.split, rel, len(self.all_events) - n)
+                print('Event type={}, k={}, number of events={}'.format(rel, k, len(self.all_events) - n))
                 n = len(self.all_events)
+                k -= 1
 
         self.all_events = sorted(self.all_events, key=lambda x: int(x[3].timestamp()))
 
-        print('%d events' % len(self.all_events))
-        print('last 10 events:')
-        for event in self.all_events[-10:]:
-            print(event)
+        if self.verbose:
+            print('%d events' % len(self.all_events))
+            print('last 10 events:')
+            for event in self.all_events[-10:]:
+                print(event)
 
         self.n_events = len(self.all_events)
 
@@ -113,7 +118,8 @@ class SocialEvolutionDataset(EventsDataset):
             H_train[e[0], e[1]] += 1
             H_train[e[1], e[0]] += 1
             c += 1
-        print('H_train', c, H_train.max(), H_train.min(), H_train.std())
+        if self.verbose:
+            print('H_train', c, H_train.max(), H_train.min(), H_train.std())
         self.H_train = H_train
 
 

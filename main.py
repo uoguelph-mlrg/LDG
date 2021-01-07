@@ -38,7 +38,6 @@ def load_checkpoint(file):
 def save_checkpoint(batch_idx, epoch):
     try:
         fname = '%s/checkpoints/checkpoint_dygraphs_%s_epoch%d_batch%d.pth.tar' % (args.results, experiment_ID, epoch, batch_idx)
-        print('saving the model to %s' % fname)
         state = {
             'epoch': epoch,
             'batch_idx': batch_idx,
@@ -54,11 +53,12 @@ def save_checkpoint(batch_idx, epoch):
         if os.path.isfile(fname):
             print('WARNING: file %s exists and will be overwritten' % fname)
         torch.save(state, fname)
+        print('the model is saved to %s' % fname)
     except Exception as e:
         print('error saving the model', e)
 
 
-def test(model, n_test_batches=10):
+def test(model, n_test_batches=10, epoch=0):
     model.eval()
     loss = 0
     losses =[ [np.Inf, 0], [np.Inf, 0] ]
@@ -117,7 +117,7 @@ def test(model, n_test_batches=10):
                             assert slot > timeslots[c-1] and d > timeslots[c-1], (d, slot, timeslots[c-1])
                         break
 
-            if batch_idx % 10 == 0:
+            if batch_idx % 10 == 0 and args.verbose:
                 print('test', batch_idx)
 
             if n_test_batches is not None and batch_idx >= n_test_batches - 1:
@@ -133,18 +133,19 @@ def test(model, n_test_batches=10):
                  len(model.Lambda_dict), time_iter / (batch_idx + 1)))
 
     # Report results for different time slots in the test set
-    for c, slot in enumerate(timeslots):
-        s = 'Slot {}: '.format(c)
-        for event_t in event_types:
-            sfx = '' if event_t == event_types[-1] else ', '
-            if len(mar[event_t][c]) > 0:
-                s += '{} ({} events): MAR={:.2f}+-{:.2f}, HITS_10={:.3f}+-{:.3f}'.\
-                    format(event_t, len(mar[event_t][c]), np.mean(mar[event_t][c]), np.std(mar[event_t][c]),
-                           np.mean(hits_10[event_t][c]), np.std(hits_10[event_t][c]))
-            else:
-                s += '{} (no events)'.format(event_t)
-            s += sfx
-        print(s)
+    if args.verbose:
+        for c, slot in enumerate(timeslots):
+            s = 'Slot {}: '.format(c)
+            for event_t in event_types:
+                sfx = '' if event_t == event_types[-1] else ', '
+                if len(mar[event_t][c]) > 0:
+                    s += '{} ({} events): MAR={:.2f}+-{:.2f}, HITS_10={:.3f}+-{:.3f}'.\
+                        format(event_t, len(mar[event_t][c]), np.mean(mar[event_t][c]), np.std(mar[event_t][c]),
+                               np.mean(hits_10[event_t][c]), np.std(hits_10[event_t][c]))
+                else:
+                    s += '{} (no events)'.format(event_t)
+                s += sfx
+            print(s)
 
     mar_all, hits_10_all = {}, {}
     for event_t in event_types:
@@ -154,17 +155,19 @@ def test(model, n_test_batches=10):
             mar_all[event_t].extend(mar[event_t][c])
             hits_10_all[event_t].extend(hits_10[event_t][c])
 
-    s = 'All slots: '
+    s = 'Epoch {}: results per event type for all test time slots: \n'.format(epoch)
+    print(''.join(['-']*100))
     for event_t in event_types:
-        sfx = '' if event_t == event_types[-1] else ', '
         if len(mar_all[event_t]) > 0:
-            s += '{} ({} events): MAR={:.2f}+-{:.2f}, HITS_10={:.3f}+-{:.3f}'.\
-                format(event_t, len(mar_all[event_t]), np.mean(mar_all[event_t]), np.std(mar_all[event_t]),
+            s += '====== {:10s}\t ({:7s} events): \tMAR={:.2f}+-{:.2f}\t HITS_10={:.3f}+-{:.3f}'.\
+                format(event_t, str(len(mar_all[event_t])), np.mean(mar_all[event_t]), np.std(mar_all[event_t]),
                        np.mean(hits_10_all[event_t]), np.std(hits_10_all[event_t]))
         else:
-            s += '{} (no events)'.format(event_t)
-        s += sfx
+            s += '====== {:10s}\t (no events)'.format(event_t)
+        if event_t != event_types[-1]:
+            s += '\n'
     print(s)
+    print(''.join(['-'] * 100))
 
     return mar_all, hits_10_all, loss / n_samples
 
@@ -208,7 +211,9 @@ if __name__ == '__main__':
                         help='number of epochs after which to reduce learning rate')
     parser.add_argument('--weight', type=float, default=1, help='weight for the second term in the loss')
     parser.add_argument('--wdecay', type=float, default=0, help='weight decay')
-    parser.add_argument('--bilinear', action='store_true', default=False, help='use bilinear model')
+    parser.add_argument('--model', type=str, default='dyrep', help='trained model', choices=['dyrep', 'gcn', 'gat'])
+    parser.add_argument('--bilinear', action='store_true', default=False, help='use bilinear intensity (omega) model')
+    parser.add_argument('--bilinear_enc', action='store_true', default=False, help='use bilinear NRI')
     parser.add_argument('--encoder', type=str, default=None, choices=['linear', 'mlp', 'mlp1', 'rand'])
     parser.add_argument('--sparse', action='store_true', default=False,
                         help='sparsity prior as in some tasks in Kipf et al., ICML 2018')
@@ -220,11 +225,13 @@ if __name__ == '__main__':
     parser.add_argument('--results', type=str, default='results', help='results file path')
     parser.add_argument('--soft_attn', action='store_true', default=False)
     parser.add_argument('--freq', action='store_true', default=False, help='use the Frequency bias')
+    parser.add_argument('--verbose', action='store_true', default=False, help='print a lot of debugging stuff and results details')
 
     args = parser.parse_args()
 
     args.lr_decay_step = list(map(int, args.lr_decay_step.split(',')))
     args.torch = torch.__version__
+    print('\n~~~~~ Script arguments ~~~~~')
     for arg in vars(args):
         print(arg, getattr(args, arg))
 
@@ -235,7 +242,7 @@ if __name__ == '__main__':
 
     try:
         gitcommit = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
-        print('gitcommit', gitcommit)
+        print('gitcommit', gitcommit, '\n')
     except Exception as e:
         print('gitcommit is not available', e)
 
@@ -250,9 +257,9 @@ if __name__ == '__main__':
 
     if args.dataset == 'social':
         data = SocialEvolutionDataset.load_data(args.data_dir, args.prob)
-        train_set = SocialEvolutionDataset(data['initial_embeddings'], data['train'], args.association)
+        train_set = SocialEvolutionDataset(data['initial_embeddings'], data['train'], args.association, verbose=args.verbose)
         test_set = SocialEvolutionDataset(data['initial_embeddings'], data['test'], args.association,
-                                    data_train=data['train'])
+                                    data_train=data['train'], verbose=args.verbose)
         initial_embeddings = data['initial_embeddings'].copy()
         A_initial = train_set.get_Adjacency()[0]
     elif args.dataset == 'github':
@@ -283,7 +290,8 @@ if __name__ == '__main__':
                 node_degree_global[rel][u] = np.sum(A[u])
 
         Adj_all = Adj_all[0]
-        print('Adj_all', Adj_all.shape, len(node_degree_global), node_degree_global[0].min(), node_degree_global[0].max())
+        if args.verbose:
+            print('Adj_all', Adj_all.shape, len(node_degree_global), node_degree_global[0].min(), node_degree_global[0].max())
         time_bar = np.zeros((dataset.N_nodes, 1)) + dataset.FIRST_DATE.timestamp()
 
         model.initialize(node_embeddings=initial_embeddings,
@@ -296,22 +304,28 @@ if __name__ == '__main__':
     train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=False)
     test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False)
 
-    freq = FreqBaseline(train_set, test_set)
+    freq = FreqBaseline(train_set, test_set, verbose=args.verbose)
 
     model = DyRep(node_embeddings=initial_embeddings,
                   N_nodes=train_set.N_nodes,
                   A_initial=A_initial,
                   n_hidden=args.n_hid,
                   bilinear=args.bilinear,
+                  bilinear_enc=args.bilinear_enc,
                   sparse=args.sparse,
                   encoder=args.encoder,
                   n_rel=args.n_rel,
                   rnd=rnd,
+                  device=args.device,
+                  model=args.model,
                   soft_attn=args.soft_attn,
                   freq=freq.H_train_norm if args.freq else None,
+                  verbose=args.verbose,
                   node_degree_global=None).to(args.device)
 
-    print(model)
+    print('')  # new string
+    if args.verbose:
+        print('model', model)
     print('number of training parameters: %d' %
           np.sum([np.prod(p.size()) if p.requires_grad else 0 for p in model.parameters()]))
 
@@ -339,9 +353,8 @@ if __name__ == '__main__':
 
     losses_events, losses_nonevents, losses_KL, losses_sum = [], [], [], []
     test_MAR, test_HITS10, test_loss = [], [], []
+    print('\nStarting training...')
     for epoch in range(epoch_start, args.epochs + 1):
-
-        scheduler.step()
 
         if not (resume and epoch == epoch_start):
             # Reinitialize node embeddings and adjacency matrices, but keep the model parameters intact
@@ -436,16 +449,20 @@ if __name__ == '__main__':
 
                 # save node embeddings and other data before testing since these variables will be updated during testing
                 variables = get_temporal_variables()
-                print('time', datetime.datetime.fromtimestamp(np.max(time_bar)))
+                if args.verbose:
+                    print('time', datetime.datetime.fromtimestamp(np.max(time_bar)))
+                save_checkpoint(batch_idx + 1, epoch)
 
-                result = test(model, n_test_batches=None if batch_idx == len(train_loader) - 1 else 10)
+                result = test(model, n_test_batches=None if batch_idx == len(train_loader) - 1 else 10, epoch=epoch)
                 test_MAR.append(np.mean(result[0]['Com']))
                 test_HITS10.append(np.mean(result[1]['Com']))
                 test_loss.append(result[2])
-                save_checkpoint(batch_idx + 1, epoch)
+
 
                 # restore node embeddings and other data
                 time_bar = set_temporal_variables(variables, model, train_loader, test_loader)
+
+        scheduler.step()
 
 
     print('end time:', datetime.datetime.now())
