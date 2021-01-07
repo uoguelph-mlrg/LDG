@@ -16,7 +16,8 @@ You can then run our code and it will generate a preprocessed `data_prob0.8.pkl`
 
 **Option 2:**
 
-Instead of using original data, you can directly download `data_prob0.8.pkl` from [here](https://drive.google.com/file/d/1VTcJaAX1FcnAEVKId40er5JnV7ZKpybz/view?usp=sharing) and put it to the `SocialEvolution` folder.
+Instead of using original data, you can directly download `data_prob0.8.pkl` from [here](https://drive.google.com/file/d/1VTcJaAX1FcnAEVKId40er5JnV7ZKpybz/view?usp=sharing) 
+and put it to the `SocialEvolution` folder.
 
 ### Github
 
